@@ -1,0 +1,147 @@
+    .login
+{
+    text-align: right;
+}
+
+.container
+{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100%;
+}
+
+nav ul li
+{
+    float: left;
+    list-style: none;
+    margin: 0px 3rem;
+}
+nav ul li a
+{
+    text-decoration: none;
+}
+
+.inicio
+{
+    justify-content: end;
+    align-items: center;
+    display: flex;
+}
+
+.lista
+{
+    display: flex;  
+    justify-content: center;
+    background-color: #F7F7F7;
+    color: #B0B0B0;
+    margin: 1rem 0;
+}
+
+.fila
+{
+    margin: 0 2rem;
+}
+.subtitulo
+{
+    font-size: 12px;
+    transition: all 0.1s ease;
+}
+.subtitulo:hover
+{
+    color: #7A7A7A;
+}
+.dropdown-content
+{
+    display: none;
+    position: absolute;
+    background-color: #F7F7F7;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    text-decoration: none;
+    border-radius: 0px;
+}
+.dropdown {
+    position: relative;
+    text-decoration: none;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.logos__redesociales
+{
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    background-color: #F7F7F7;
+    color: #B0B0B0;
+    margin: 1rem 0;
+    gap: 10px;
+}
+.redSocial__footer
+{
+    height: 25px;
+    width: 25px;
+    text-decoration: none;
+}
+.redSocial__footer img
+{
+    height: 100%;
+    width: 100%;
+}
+.login
+{
+    display: table-cell;
+    padding: 4rem 0;
+}
+
+.contenedor
+{
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+}
+.boton
+{
+    color: gray;
+    border-color: black;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 4px;
+    padding: 10px 20px;
+    cursor: not-allowed;    
+}
+.img
+{
+    width: 50%;
+    height: auto;
+}
+footer
+{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.dropdown:hover > a 
+{
+    background-color: #e0e0e0;
+    color: #003366;
+}
+.dropdown-content a
+{
+    color: #333;
+    display: block; 
+    padding: 8px 1px;
+}
+.dropdown-content a:hover 
+{
+    background-color: #cccccc;
+    color: #000000;
+}
