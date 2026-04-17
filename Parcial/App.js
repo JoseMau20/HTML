@@ -1,16 +1,26 @@
 let cantidad = [];
 let total = 0;
+let descuento = 0;
 
 function Cart() {
-    let compras = document.getElementById("compras");
+    let carrito = document.getElementById("compras");
     
-    if (compras.style.display === "none" ) 
+    if (carrito.style.display === "none" ) 
     {
-        compras.style.display = "block"; 
+        carrito.style.display = "block"; 
     } 
     else
     {
-        compras.style.display = "none";  
+        carrito.style.display = "none";  
+    }
+    
+    if(total === 0)
+    {
+        carrito.innerHTML = `
+        <li>
+        <strong>Aún no has agregado productos al carrito.</strong>
+        </li>
+        `;
     }
 }
 
@@ -20,6 +30,7 @@ function compra(boton)
     let titulo = tarjeta.querySelector(".titulo").textContent;
     let precio = parseFloat(tarjeta.querySelector(".precio").textContent.replace("Q", ""));
     let imagen = tarjeta.querySelector('.imagen-disco img') ? tarjeta.querySelector('.imagen-disco img').src : '';
+    let precioviejo = parseFloat(tarjeta.querySelector(".precio-viejo").textContent.replace("Q", ""));
 
     let existencia = cantidad.find(producto => producto.nombre === titulo);
 
@@ -29,10 +40,11 @@ function compra(boton)
     }
     else
     {
-        cantidad.push({ nombre: titulo, precio: precio, imagen: imagen, cantidad: 1 });
+        cantidad.push({ nombre: titulo, precio: precio, imagen: imagen, cantidad: 1, precioviejo: precioviejo });
     }
 
-    total += precio;
+    total += precioviejo;
+    descuento += (precioviejo - precio);
 
     actualizarCarrito();
 }
@@ -44,25 +56,38 @@ function actualizarCarrito()
 
     cantidad.forEach(producto => 
         {
-        let subtotalProducto = producto.precio * producto.cantidad;
+        let subtotalProducto = producto.precioviejo * producto.cantidad;
 
             carrito.innerHTML += `
             <li>
                 <img src="${producto.imagen}" alt="Disco">
                 <div class="detalles-producto">
-                    <strong>${producto.nombre}</strong> <br> 
-                    Precio viejo: Q${(producto.precio * 1.25).toFixed(2)} <br>
-                    Precio: Q${producto.precio.toFixed(2)} | <b>Cantidad: ${producto.cantidad}</b> <br>
-                    <i>Subtotal: Q${subtotalProducto.toFixed(2)}</i>
+                    <strong>${producto.nombre}</strong> <br>
+                    <b> Precio: </b> Q${producto.precioviejo.toFixed(2)} <br>
+                    <b>Cantidad: </b> 
+                    <input type="number" id="cantidad" name="cantidad" class="cantidad" value="${producto.cantidad}" onchange="actualizarCarrito()"> <br>
+                    <b>Subtotal: </b> Q${subtotalProducto.toFixed(2)}<br>
+
                 </div>
             </li>
         `;
         }); 
 
     carrito.innerHTML += `
-        <li style="justify-content: flex-end; border-bottom: none; font-size: 18px; margin-top: 10px; align-items: center; display: flex;">
-            <strong>TOTAL: Q${total.toFixed(2)}</strong>
-        </li>
+        <ul>
+            <li style="justify-content: flex-end; border-bottom: none; font-size: 18px; align-items: center; display: flex; text-decoration: line-through;">
+            SubTotal: Q${(total).toFixed(2)}
+            </li>
+
+            <li style="justify-content: flex-end; border-bottom: none; font-size: 18px; align-items: center; display: flex;">
+            Descuento: Q${(descuento).toFixed(2)}
+            </li>    
+        
+            <li style="justify-content: flex-end; border-bottom: none; font-size: 18px; align-items: center; display: flex;">
+            <strong>Total: Q${(total - descuento).toFixed(2)}</strong>
+            </li> 
+        </ul>         
+
     <button class="boton-comprar" style="margin-top: 5px; display: block; margin-left: auto;" onclick="finalizarCompra()">Finalizar Compra</button>    `; 
 }
 

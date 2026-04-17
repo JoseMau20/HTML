@@ -17,9 +17,10 @@ body
 {
     margin: 0;
     padding: 0;
-    background-color: #221c4d;
+    background-color: #647AA3;
     color: aliceblue;
     font-size: 16px;
+    opacity: 20;
 }
 .dropdown-content
 {
@@ -53,7 +54,7 @@ body
 }
 .Logo
 {
-    width: 20em;
+    width: 25em;
 }
 nav ul li
 {
@@ -71,7 +72,7 @@ nav ul li a
     height: 25rem;
     justify-content: center;
     align-items: center;
-    margin: 1em;
+    margin: 5em;
 }
 .descripcion
 {
@@ -81,8 +82,8 @@ nav ul li a
     padding: 3.5rem;
     position: relative;
     position: absolute;
-    top: 18.5rem;
-    width: 40rem;
+    top: 10.5rem;
+    width: 29rem;
     color:black;
     font-weight: bold;
     text-decoration: solid;
@@ -97,8 +98,8 @@ nav ul li a
     background-color: #ffffff;
     font-family: Arial, sans-serif;
     box-sizing: border-box;
-    margin: 4rem 1rem;
-    border-radius: 100px;
+    margin: 2rem 1rem;
+    border-radius: 25px;
     display: flex;
     
 }
@@ -121,7 +122,7 @@ nav ul li a
 .titulo{
     font-size: 16px;
     color: #000;
-    margin: 1rem 2rem .9rem 0rem; 
+    margin: 2rem 2rem .9rem 0rem; 
     line-height: 1.5;
 }
 
@@ -159,6 +160,7 @@ nav ul li a
     justify-content: center;
     margin-right: auto;
     display: block;
+    margin: 0.5rem 1rem;
 }
 .boton-comprar:hover {
     background-color: #506178;
@@ -201,7 +203,7 @@ nav ul li a
 
 #compras {
     position: fixed; 
-    top: 80px;
+    top: 68px;
     right: 20px; 
     width: 400px;
     max-height: 400px; 
@@ -233,4 +235,10 @@ nav ul li a
     border-radius: 8px;   
     margin-right: 15px;   
     vertical-align: middle;
+}
+#cantidad
+{
+    border-radius: 5px;
+    padding: 0px 0px 0px 5px;
+    width: 15%;
 }

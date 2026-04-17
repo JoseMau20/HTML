@@ -21,7 +21,7 @@
         </nav>
 
         <nav class="carrito">
-            <button onclick="Cart()">
+            <button onmouseenter="Cart()" >
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-cart" viewBox="0 0 16 16">
                     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                 </svg> 
@@ -30,7 +30,7 @@
     </header>
 
     <section class="portada" id="Inicio">
-        <img src="Encabezado.avif" alt="Portada de la tienda" class="portada">
+        <img src="Linkin2.webp" alt="Portada de la tienda" class="portada">
         <p class="descripcion">En Spotlight music nos especializamos en ofrecerle la mejor calidad de producto, porque usted es lo mejor y necesita escuchar lo mejor.</p>
     </section>
 
@@ -40,10 +40,11 @@
                 <img src="Disc1.webp" alt="Disco AC/DC Back In Black">
             </div>
             <div class="info-producto">
-                <p class="titulo">Nuevo Disco AC/DC | Vinilo Back In Black - 50 exclusive edition Aniversary</p>
+                <p class="titulo">Nuevo Disco AC/DC | Vinilo Back In Black - 50 exclusive edition</p>
                 <p class="precio-viejo">Q900.00</p>
                 <p class="precio">Q650.00</p>
-                <button class="boton-comprar" onclick="compra(this)">Comprar</button></div>
+                <button class="boton-comprar" onclick="compra(this)">Comprar</button>
+            </div>
         </article>
 
         <article class="tarjeta" id="Producto1">
@@ -54,8 +55,8 @@
                 <p class="titulo">Nuevo Sabrina Carpintera | Vinilo Man's Best Friend</p>
                 <p class="precio-viejo">Q850.00</p>
                 <p class="precio">Q500.00</p>
-                <button class="boton-comprar" onclick="compra(this)">Comprar</button></div>
-            </div>
+                <button class="boton-comprar" onclick="compra(this)" >Comprar</button>
+            </div> 
         </article>
 
         <article class="tarjeta" id="Producto2">
@@ -66,7 +67,7 @@
                 <p class="titulo">Nuevo Disco K-pop | Vinilo Demon Hunters Collection</p>
                 <p class="precio-viejo">Q350.00</p>
                 <p class="precio">Q280.00</p>
-                <button class="boton-comprar" onclick="compra(this)">Comprar</button></div>
+                <button class="boton-comprar" onclick="compra(this)">Comprar</button>
             </div>
         </article>
 
@@ -78,7 +79,7 @@
                 <p class="titulo">Nuevo Disco Michael Jackson | Vinilo Exclusive Bad Collection</p>
                 <p class="precio-viejo">Q650.00</p>
                 <p class="precio">Q580.00</p>
-                <button class="boton-comprar" onclick="compra(this)">Comprar</button></div>
+                <button class="boton-comprar" onclick="compra(this)">Comprar</button>
             </div>
         </article>
     </main>
@@ -105,7 +106,7 @@
         </form>
     </section>
 
-    <ul id="compras" style="display:none;" class="boton-compras">
+    <ul id="compras" style="display:none;" class="boton-compras" onmouseleave="Cart()">
         <li></li>
     </ul>
 
