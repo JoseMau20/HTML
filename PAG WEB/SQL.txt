@@ -1,0 +1,22 @@
+CREATE DATABASE SpotlightMusic;
+GO
+
+USE SpotlightMusic;
+GO
+
+CREATE TABLE Discos (
+    IdDisco INT IDENTITY(1,1) PRIMARY KEY,
+    Imagen NVARCHAR(255) NOT NULL,
+    Titulo NVARCHAR(200) NOT NULL,
+    PrecioViejo DECIMAL(10, 2) NOT NULL,
+    Precio DECIMAL(10, 2) NOT NULL
+);
+GO
+
+INSERT INTO Discos (Imagen, Titulo, PrecioViejo, Precio)
+VALUES 
+('Disc1.webp', 'Nuevo Disco AC/DC | Vinilo Back In Black - 50 exclusive edition', 900.00, 650.00),
+('Disc2.webp', 'Nuevo Sabrina Carpintera | Vinilo Man''s Best Friend', 850.00, 500.00),
+('Disc3.webp', 'Nuevo Disco K-pop | Vinilo Demon Hunters Collection', 350.00, 280.00),
+('Disc4.avif', 'Nuevo Disco Michael Jackson | Vinilo Exclusive Bad Collection', 650.00, 580.00);
+GO

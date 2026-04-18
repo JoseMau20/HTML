@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración - Spotlight</title>
+    <style>
+        body { font-family: Arial; background-color: #647AA3; padding: 40px; margin: 0; }
+        .container { max-width: 900px; margin: auto; background: #F7F7F7; padding: 30px; border-radius: 15px; color: #333; }
+        h1 { color: #06386e; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .btn { padding: 12px 20px; border: none; border-radius: 5px; cursor: pointer; color: white; width: 100%; font-weight: bold; margin-top: 10px; }
+        .btn-add { background-color: #28a745; }
+        .btn-cancel { background-color: #6c757d; display: none; }
+        .btn-edit { background-color: #ffc107; color: black; padding: 5px; width: 80px; }
+        .btn-del { background-color: #dc3545; padding: 5px; width: 80px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; background: white; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #06386e; color: white; }
+        img { width: 50px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" style="text-decoration: none; color: #06386e; font-weight: bold;">⬅ Volver a la Tienda</a>
+        <h1>Inventario de Discos</h1>
+        <form id="adminForm">
+            <input type="hidden" id="editId" value="-1">
+            <div class="form-group"><label>Imagen (URL o nombre archivo):</label><input type="text" id="imagen" required></div>
+            <div class="form-group"><label>Título:</label><input type="text" id="titulo" required></div>
+            <div class="form-group"><label>Precio Normal (Q):</label><input type="number" id="precioViejo" step="0.01" required></div>
+            <div class="form-group"><label>Precio Oferta (Q):</label><input type="number" id="precio" step="0.01" required></div>
+            <button type="submit" class="btn btn-add" id="btnSubmit">Agregar Disco</button>
+            <button type="button" class="btn btn-cancel" id="btnCancel" onclick="resetForm()">Cancelar</button>
+        </form>
+
+        <table>
+            <thead><tr><th>Imagen</th><th>Título</th><th>Normal</th><th>Oferta</th><th>Acciones</th></tr></thead>
+            <tbody id="listaDiscos"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api/discos';
+        let currentDiscos = [];
+
+        async function cargarDiscos() {
+            const res = await fetch(API_URL);
+            currentDiscos = await res.json();
+            const lista = document.getElementById('listaDiscos');
+            lista.innerHTML = '';
+            currentDiscos.forEach(d => {
+                lista.innerHTML += `<tr>
+                    <td><img src="${d.imagen}" onerror="this.src='https://via.placeholder.com/50'"></td>
+                    <td>${d.titulo}</td>
+                    <td>Q${d.precioViejo.toFixed(2)}</td>
+                    <td>Q${d.precio.toFixed(2)}</td>
+                    <td>
+                        <button class="btn-edit" onclick="editar(${d.id})">Editar</button>
+                        <button class="btn-del" onclick="eliminar(${d.id})">Borrar</button>
+                    </td>
+                </tr>`;
+            });
+        }
+
+        document.getElementById('adminForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const disco = {
+                imagen: document.getElementById('imagen').value,
+                titulo: document.getElementById('titulo').value,
+                precioViejo: parseFloat(document.getElementById('precioViejo').value),
+                precio: parseFloat(document.getElementById('precio').value)
+            };
+            const id = parseInt(document.getElementById('editId').value);
+
+            const method = id === -1 ? 'POST' : 'PUT';
+            const url = id === -1 ? API_URL : `${API_URL}/${id}`;
+
+            await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(disco)
+            });
+
+            resetForm();
+            cargarDiscos();
+        };
+
+        window.editar = (id) => {
+            const d = currentDiscos.find(x => x.id === id);
+            document.getElementById('imagen').value = d.imagen;
+            document.getElementById('titulo').value = d.titulo;
+            document.getElementById('precioViejo').value = d.precioViejo;
+            document.getElementById('precio').value = d.precio;
+            document.getElementById('editId').value = d.id;
+            
+            document.getElementById('btnSubmit').textContent = "Actualizar Disco";
+            document.getElementById('btnSubmit').style.backgroundColor = '#ffc107';
+            document.getElementById('btnSubmit').style.color = 'black';
+            document.getElementById('btnCancel').style.display = 'block';
+        };
+
+        window.eliminar = async (id) => {
+            if(confirm("¿Eliminar de la base de datos?")) {
+                await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+                cargarDiscos();
+            }
+        };
+
+        function resetForm() {
+            document.getElementById('adminForm').reset();
+            document.getElementById('editId').value = "-1";
+            document.getElementById('btnSubmit').textContent = "Agregar Disco";
+            document.getElementById('btnSubmit').style.backgroundColor = '#28a745';
+            document.getElementById('btnSubmit').style.color = 'white';
+            document.getElementById('btnCancel').style.display = 'none';
+        }
+
+        cargarDiscos();
+    </script>
+</body>
+</html>

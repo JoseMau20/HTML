@@ -1,0 +1,83 @@
+const express = require('express');
+const cors = require('cors');
+const sql = require('mssql');
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+const dbConfig = {
+    user: 'sa', // Cambia esto por tu usuario
+    password: 'tu_password', // Cambia esto por tu contraseña
+    server: 'localhost',
+    database: 'SpotlightMusic',
+    options: {
+        encrypt: false,
+        trustServerCertificate: true
+    }
+};
+
+// GET: Obtener todos los discos
+app.get('/api/discos', async (req, res) => {
+    try {
+        let pool = await sql.connect(dbConfig);
+        let result = await pool.request().query('SELECT IdDisco AS id, Imagen AS imagen, Titulo AS titulo, PrecioViejo AS precioViejo, Precio AS precio FROM Discos');
+        res.json(result.recordset);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+// POST: Agregar un disco
+app.post('/api/discos', async (req, res) => {
+    const { imagen, titulo, precioViejo, precio } = req.body;
+    try {
+        let pool = await sql.connect(dbConfig);
+        await pool.request()
+            .input('img', sql.NVarChar, imagen)
+            .input('tit', sql.NVarChar, titulo)
+            .input('pv', sql.Decimal(10,2), precioViejo)
+            .input('p', sql.Decimal(10,2), precio)
+            .query('INSERT INTO Discos (Imagen, Titulo, PrecioViejo, Precio) VALUES (@img, @tit, @pv, @p)');
+        res.status(201).send({ mensaje: "Disco creado" });
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+// PUT: Actualizar un disco
+app.put('/api/discos/:id', async (req, res) => {
+    const { id } = req.params;
+    const { imagen, titulo, precioViejo, precio } = req.body;
+    try {
+        let pool = await sql.connect(dbConfig);
+        await pool.request()
+            .input('id', sql.Int, id)
+            .input('img', sql.NVarChar, imagen)
+            .input('tit', sql.NVarChar, titulo)
+            .input('pv', sql.Decimal(10,2), precioViejo)
+            .input('p', sql.Decimal(10,2), precio)
+            .query('UPDATE Discos SET Imagen=@img, Titulo=@tit, PrecioViejo=@pv, Precio=@p WHERE IdDisco=@id');
+        res.send({ mensaje: "Disco actualizado" });
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+// DELETE: Eliminar un disco
+app.delete('/api/discos/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        let pool = await sql.connect(dbConfig);
+        await pool.request()
+            .input('id', sql.Int, id)
+            .query('DELETE FROM Discos WHERE IdDisco=@id');
+        res.send({ mensaje: "Disco eliminado" });
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+app.listen(3000, () => {
+    console.log('API corriendo en http://localhost:3000');
+});
