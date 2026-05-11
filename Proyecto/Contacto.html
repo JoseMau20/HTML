@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="App.js" defer=""></script>
+
+</head>
+<body>
+
+<header>
+        <div class="burger">
+            <div class="logo">
+                <img src="Imgs/Logo2.png" alt="Logo">
+            </div>
+                <button id="btn-hamburguesa" class="burger-menu" onclick="button_menu()">☰</button>  
+            </div>
+
+        <nav id="menu-principal" class="menu">
+            <ul>
+                <li ><a href="index.html">Inicio</a></li>
+                <li class="dropdown"><a href="#" onclick="button_productos(event)">Productos ▼</a>
+                <ul class="dropdown-content" id="submenu-productos">    
+                    <li><a href="Acuaticos.html">Acuáticos</a></li>
+                    <li><a href="Terrestres.html">Terrestres</a></li>
+                    <li><a href="Aereos.html">Aéreos</a></li>
+                </ul></li>
+                <li><a href="Conocenos.html">Quienes somos</a></li>
+                <li class="activo"><a href="Contacto.html">Contacto</a></li>
+                <li><a href="Trabajo.html">Oportunidades</a></li>
+                <li><a href="VIP.html">VIP</a></li>            
+            </ul> 
+        </nav>
+
+        <nav class="carrito">
+            <button onmouseenter="Cart()" onclick="Cart()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-cart" viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                </svg> 
+            </button>       
+        </nav>    
+    </header>
+
+    <main class="principal">
+
+        <div class="mapa">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3856.567715171514!2d-91.5346976!3d14.8495002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x858e981a3b974b4d%3A0x88741c4fae945aa3!2sCentros%20Comerciales%20Pradera%20Xela!5e0!3m2!1ses!2sgt!4v1777998725445!5m2!1ses!2sgt" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <form action="" class="datos">
+        
+            <div class="formulario">
+                <label for="nombre">Correo:</label>
+                <input type="text" name="nombre" id="nombre" class="elemendatos">
+            </div>
+
+            <div class="formulario">
+                <label for="motivo">Motivo:</label>
+                <select name="motivo" id="motivo" class="elemendatos">
+                    <option value="consulta">Consulta</option>
+                    <option value="queja">Queja</option>
+                    <option value="felicitacion">Felicitación</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+
+            <div class="formulario">
+                <label for="mensaje">Mensaje:</label>
+                <textarea name="mensaje" id="mensaje" class="elemendatos"></textarea>
+            </div>
+
+            <button type="submit" class="boton-enviar">Enviar</button>
+
+        </form>
+
+    <ul id="compras" style="display:none;" class="boton-compras" onmouseleave="Cart()">
+        <li></li>
+    </ul>        
+        
+    </main>
+
+
+    <footer>
+        <p>Copyright &copy; 2026</p>
+    </footer>
+
+</body>
+
+
+
+</html>
