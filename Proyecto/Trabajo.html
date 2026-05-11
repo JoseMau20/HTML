@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="App.js" defer=""></script>
+</head>
+<body>
+
+<header>
+        <div class="burger">
+            <div class="logo">
+                <img src="Imgs/Logo2.png" alt="Logo">
+            </div>
+                <button id="btn-hamburguesa" class="burger-menu" onclick="button_menu()">☰</button>  
+            </div>
+
+        <nav id="menu-principal" class="menu">
+            <ul>
+                <li ><a href="index.html">Inicio</a></li>
+                <li class="dropdown"><a href="#">Productos ▼</a>
+                <ul class="dropdown-content">
+                    <li><a href="Acuaticos.html">Acuáticos</a></li>
+                    <li><a href="Terrestres.html">Terrestres</a></li>
+                    <li ><a href="Aereos.html">Aéreos</a></li>
+                </ul></li>
+                <li><a href="Conocenos.html">Quienes somos</a></li>
+                <li ><a href="Contacto.html">Contacto</a></li>
+                <li class="activo"><a href="Trabajo.html">Oportunidades</a></li>
+                <li><a href="VIP.html">VIP</a></li>            
+            </ul> 
+        </nav>
+
+        <nav class="carrito">
+            <button onmouseenter="Cart()" onclick="Cart()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-cart" viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                </svg> 
+            </button>       
+        </nav>    
+    </header>
+
+    <main class="principal"> 
+        
+        <article class="plaza">
+            <div class="imagen-plaza">
+                <img src="Imgs/T1.png" alt="Producto 3">
+            </div>
+            <div class="info-plaza">
+                <p class="titulo"> Ventas y servicio al cliente - Tienda (Quetzaltenango) </p>
+                <p class="descripcion"> Este puesto de tiempo completo y presencial requiere un profesional con 
+                    sólidas habilidades de comunicación y experiencia previa en ventas al por menor. Será responsable
+                    de interactuar directamente con los clientes para comprender sus necesidades, recomendar productos
+                    procesar transacciones de venta y proporcionar soporte postventa. La posición se centra en la satisfacción 
+                    del cliente y el logro de objetivos de ventas en el entorno de la tienda.</p>
+            </div>
+        </article> 
+
+        <article class="plaza">
+            <div class="imagen-plaza">
+                <img src="Imgs/T3.png" alt="Imagen Contador">
+            </div>
+            <div class="info-plaza">
+                <p class="titulo">Asistente de Contabilidad (Quetzaltenango) </p>
+                <p class="descripcion"> Esta es una oportunidad temporal y de modelo de trabajo híbrido 
+                    (parcialmente remoto/oficina) para un Asistente de Contabilidad de Costos. El rol brinda apoyo 
+                    operativo al departamento de contabilidad, con un enfoque específico en el análisis y control
+                    de costos de producción. Las responsabilidades clave incluyen el registro y control de inventarios, 
+                    el cálculo de costos de productos terminados, la conciliación de cuentas relacionadas con costos 
+                    y la preparación de informes de márgenes de beneficio. Se requiere conocimiento de principios contables
+                    y sistemas de contabilidad. Esta posición ofrece flexibilidad de trabajo remoto.</p>
+            </div>
+        </article> 
+
+        <article class="plaza">
+            <div class="imagen-plaza">
+                <img src="Imgs/T2.png" alt="Imagen Asesor de Ventas ">
+            </div>
+            <div class="info-plaza">
+                <p class="titulo">Asesor de Ventas (Quetzaltenango) </p>
+                <p class="descripcion"> Este puesto presencial y temporal busca un Asesor de Ventas para la tienda.
+                    A diferencia del rol de ventas general, el Asesor se centra en guiar activamente a
+                    los clientes, proporcionando demostraciones de productos para ayudarles a tomar decisiones de compra informadas. 
+                    Las responsabilidades incluyen alcanzar objetivos de ventas y fomentar relaciones 
+                    a largo plazo con los clientes. La empresa valora la diversidad e inclusión.</p>
+            </div>
+        </article>
+        
+    <ul id="compras" style="display:none;" class="boton-compras" onmouseleave="Cart()">
+        <li></li>
+    </ul>        
+
+    </main>
+
+
+    <footer>
+        <p>Copyright &copy; 2026</p>
+
+    </footer>
+
+</body>
+
+
+
+</html>

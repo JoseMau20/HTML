@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="App.js" defer=""></script>
+</head>
+<body>
+
+<header>
+        <div class="burger">
+            <div class="logo">
+                <img src="Imgs/Logo2.png" alt="Logo">
+            </div>
+                <button id="btn-hamburguesa" class="burger-menu" onclick="button_menu()">☰</button>  
+            </div>
+
+        <nav id="menu-principal" class="menu">
+            <ul>
+                <li ><a href="index.html">Inicio</a></li>
+                <li class="dropdown"><a href="#">Productos ▼</a>
+                <ul class="dropdown-content">
+                    <li><a href="Acuaticos.html">Acuáticos</a></li>
+                    <li><a href="Terrestres.html">Terrestres</a></li>
+                    <li class="activo"><a href="Aereos.html">Aéreos</a></li>
+                </ul></li>
+                <li><a href="Conocenos.html">Quienes somos</a></li>
+                <li ><a href="Contacto.html">Contacto</a></li>
+                <li><a href="Trabajo.html">Oportunidades</a></li>
+                <li><a href="VIP.html">VIP</a></li>            
+            </ul> 
+        </nav>
+
+        <nav class="carrito">
+            <button onmouseenter="Cart()" onclick="Cart()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="black" class="bi bi-cart" viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                </svg> 
+            </button>       
+        </nav>    
+    </header>
+
+    <main class="principal">
+
+        <article class="productos">
+            <div class="imagen-productos">
+                <img src="Imgs/P12.jpeg" alt="Producto 3" >
+            </div>
+            <div class="info-producto">
+                <p class="titulo">Figura coleccionable - Jurassic World Dominion Terodactilo </p>
+                <p class="precio">Q280.00</p>
+                <button class="boton-comprar" onclick="compra(this)">Comprar</button>
+            </div>
+        </article> 
+    
+        <article class="productos">
+            <div class="imagen-productos">
+                <img src="Imgs/P13.jpeg" alt="Producto 4">
+            </div>
+            <div class="info-producto">
+                <p class="titulo">Figura coleccionable - Jurassic World Dominion Dodo</p>
+                <p class="precio">Q280.00</p>
+                <button class="boton-comprar" onclick="compra(this)">Comprar</button>
+            </div>
+        </article>
+
+        <article class="productos">
+            <div class="imagen-productos">
+                <img src="Imgs/P14.jpeg" alt="Producto 4">
+            </div>
+            <div class="info-producto">
+                <p class="titulo">Figura coleccionable - Jurassic World Dominion Quetzalcoatlus</p>
+                <p class="precio">Q280.00</p>
+                <button class="boton-comprar" onclick="compra(this)">Comprar</button>
+            </div>
+        </article>        
+
+    <ul id="compras" style="display:none;" class="boton-compras" onmouseleave="Cart()">
+        <li></li>
+    </ul>        
+
+    </main>
+
+
+    <footer>
+        <p>Copyright &copy; 2026</p>
+
+    </footer>
+
+</body>
+
+
+
+</html>
