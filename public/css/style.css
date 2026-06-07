@@ -1,0 +1,576 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: #ffffff;
+}
+
+header:has(.encabezado) {
+    display: contents;
+}
+
+main {
+    min-height: calc(100vh - 350px);
+}
+
+.encabezado {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #ffffff;
+}
+
+.encabezado img {
+        height: 110px;
+        width: 110px;
+        border-radius: 50%;
+        object-fit: cover;
+        background-color: #ffffff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+
+.botones-derecha {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-login {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.btn-login:hover {
+    color: aquamarine;
+}
+
+.menu {
+    width: 100%;
+    height: 60px;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    align-self: flex-start;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.menu a:hover {
+    color: aquamarine;
+}
+
+section {
+    padding: 60px 30px;
+}
+
+.seccion-inicio {
+    background-color: #f0fdfa;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.texto-bienvenida h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.texto-bienvenida p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.seccion-servicios {
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.seccion-servicios h2 {
+    color: #2c3e50;
+    margin-bottom: 40px;
+    font-size: 2rem;
+}
+
+.contenedor-tarjetas {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.tarjeta-examen {
+    background-color: #ffffff;
+    border-top: 5px solid aquamarine;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    transition: transform 0.3s ease;
+}
+
+.tarjeta-examen:hover {
+    transform: translateY(-10px);
+}
+
+.tarjeta-examen h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.tarjeta-examen p {
+    color: #666;
+    line-height: 1.5;
+}
+
+.seccion-contacto {
+    background-color: #f9f9f9;
+}
+
+.seccion-contacto h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 40px;
+    font-size: 2rem;
+}
+
+.contenedor-contacto {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.formulario-contacto,
+.multimedia-contacto {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formulario-contacto form {
+    margin-bottom: 5px;
+}
+
+.formulario-contacto input,
+.formulario-contacto textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.formulario-contacto input:focus,
+.formulario-contacto textarea:focus {
+    outline: none;
+    border-color: aquamarine;
+    box-shadow: 0 0 5px rgba(127, 255, 212, 0.5);
+}
+
+.boton_wa {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #25D366;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.boton_wa:hover {
+    background-color: #1ebe5d;
+    transform: translateY(-3px);
+}
+
+.mapa iframe {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.video-clinica iframe {
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 1 / 1.78;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #000;
+    display: block;
+    margin: 0 auto;
+}
+
+footer {
+    background-color: #2b3a55;
+    color: #ffffff;
+    padding: 40px 20px;
+    margin-top: 50px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-logo img {
+    height: 110px;
+    width: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #ffffff;
+}
+
+.footer-info {
+    flex: 1;
+    text-align: center;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0 20px;
+}
+
+.contacto-rapido {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.item-contacto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.item-contacto .contenedor-svg {
+    color: aquamarine;
+    display: flex;
+}
+
+.item-contacto svg,
+.boton-arriba a svg,
+.iconos-redes a svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.boton-arriba a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.boton-arriba a:hover {
+    background-color: aquamarine;
+    color: #2b3a55;
+    transform: translateY(-5px);
+}
+
+.footer-social {
+    text-align: center;
+    min-width: 200px;
+}
+
+.footer-social p {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+}
+
+.iconos-redes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.iconos-redes a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    color: #2b3a55;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.iconos-redes a:hover {
+    background-color: aquamarine;
+    transform: scale(1.1);
+}
+
+.body-login {
+    background-color: #f0fdfa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header-login {
+    padding: 20px 30px;
+}
+
+.btn-regresar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #2b3a55;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.btn-regresar:hover {
+    color: aquamarine;
+}
+
+.main-login {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.tarjeta-login-layout {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.login-logo-columna {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.login-form-columna {
+    flex: 1;
+    text-align: left;
+}
+
+.logo-login {
+    height: 330px;
+    width: 330px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form-columna h2 {
+    color: #2b3a55;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+}
+
+.grupo-input {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.grupo-input label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.grupo-input input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.grupo-input input:focus {
+    outline: none;
+    border-color: aquamarine;
+    box-shadow: 0 0 5px rgba(127, 255, 212, 0.5);
+}
+
+.opciones-login {
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.link-olvido {
+    color: #555;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.link-olvido:hover {
+    color: aquamarine;
+}
+
+.boton-ingresar {
+    width: 100%;
+    padding: 14px;
+    background-color: #2b3a55;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.boton-ingresar:hover {
+    background-color: aquamarine;
+    color: #2b3a55;
+    transform: translateY(-2px);
+}
+
+.mensaje-error {
+    color: #e74c3c;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .encabezado {
+        flex-direction: column;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .encabezado img {
+        height: 150px;
+        width: 150px;
+    }
+
+    .botones-derecha {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .menu {
+        height: auto;
+        padding: 15px;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .menu a {
+        font-size: 14px;
+    }
+
+    .contenedor-contacto {
+        flex-direction: column;
+    }
+
+    .texto-bienvenida h1 {
+        font-size: 2rem;
+    }
+
+    .tarjeta-examen {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+
+    .footer-info {
+        border-left: none;
+        border-right: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 20px 0;
+        width: 100%;
+    }
+
+    .tarjeta-login-layout {
+        flex-direction: column;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .login-form-columna {
+        width: 100%;
+    }
+
+    .logo-login {
+        height: 175px;
+        width: 175px;
+    }
+}
