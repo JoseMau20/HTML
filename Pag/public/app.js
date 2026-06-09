@@ -4,7 +4,7 @@ function MsjConsulta(event) {
   let nombre = document.getElementById("nombreP").value;
   let consulta = document.getElementById("consultaP").value;
 
-  let numeroClinica = "50233675879";
+  let numeroClinica = "50230492536";
 
   let mensaje = `Hola, mi nombre es ${nombre}. Quisiera hacer la siguiente consulta médica:\n\n"${consulta}"`;
   let urlMensaje = encodeURIComponent(mensaje);
