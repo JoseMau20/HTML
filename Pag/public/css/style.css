@@ -503,6 +503,165 @@ footer {
     display: none;
 }
 
+.login-form-columna .mensaje-error {
+    display: block;
+}
+
+.login-form-columna .mensaje-error:empty {
+    display: none;
+}
+
+.login-form-columna h2
+{
+text-align: center;
+}
+
+.caja-password {
+    position: relative !important;
+    display: block !important;
+    width: 100%;
+}
+
+.caja-password input {
+    width: 100% !important;
+    padding-right: 45px !important;
+    box-sizing: border-box !important;
+    /* Vital para que el padding no rompa el ancho */
+}
+
+.caja-password .btn-ver-password {
+    position: absolute !important;
+    right: 10px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    /* Esto lo centra perfectamente en vertical */
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+}
+
+.caja-password .btn-ver-password:hover {
+    color: #495057;
+}
+
+.caja-password .btn-ver-password svg {
+    width: 20px;
+    height: 20px;
+}
+
+.modal-oculto {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-oculto.mostrar {
+    display: flex;
+}
+
+.modal-contenido {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: aparecerModal 0.3s ease-out;
+}
+
+@keyframes aparecerModal {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    background-color: #2b3a55;
+    /* Azul institucional */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.btn-cerrar-modal {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.btn-cerrar-modal:hover {
+    color: #ffc107;
+}
+
+.modal-body {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.info-resumen p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.divisor-modal {
+    border: 0;
+    border-top: 1px dashed #ddd;
+    margin: 15px 0;
+}
+
+.modal-body h4 {
+    color: #2b3a55;
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+}
+
+.texto-informe p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    border-top: 1px solid #eee;
+}
+
 @media (max-width: 768px) {
     .encabezado {
         flex-direction: column;

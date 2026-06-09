@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expediente de Paciente - Clínica Pediátrica</title>
+    <link rel="stylesheet" href="../css/sistema.css">
+    <script defer src="../app.js"></script>
+</head>
+<body class="menu-abierto">
+
+    <div id="contenedor-header"></div>
+    <div id="contenedor-menu"></div>
+
+    <main class="principal">
+
+        <div class="encabezado-vistas">
+            <div>
+                <h2>Expediente Médico: Juan Pérez</h2>
+                <p class="subtitulo-vista">Historial clínico completo y antecedentes.</p>
+            </div>
+            <div class="celda-acciones">
+                <a href="nueva-consulta.html" class="btn-accion btn-editar" style="text-decoration: none;">
+                    + Nueva Consulta
+                </a>
+                <a href="pacientes.html" class="btn-accion btn-desactivar" style="text-decoration: none;">
+                    Volver a Pacientes
+                </a>
+            </div>
+        </div>
+
+        <h3 class="titulo-seccion">Información del Paciente</h3>
+        <div class="contenedor-formulario">
+            <div class="grid-formulario">
+                
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Nombre Completo</label>
+                        <input type="text" value="Juan Pérez Gómez" readonly>
+                    </div>
+                </div>
+
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Fecha de Nacimiento / Edad</label>
+                        <input type="text" value="27 / 12 / 2015 (10 años)" readonly>
+                    </div>
+                </div>
+
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Tipo de Sangre</label>
+                        <input type="text" value="O Negativo (O-)" readonly>
+                    </div>
+                </div>
+
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Género</label>
+                        <input type="text" value="Masculino" readonly>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <h3 class="titulo-seccion">Datos del Encargado / Tutor</h3>
+        <div class="contenedor-formulario">
+            <div class="grid-formulario">
+                
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Nombre del Encargado</label>
+                        <input type="text" value="Carlos Pérez Estrada" readonly>
+                    </div>
+                </div>
+
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Parentesco</label>
+                        <input type="text" value="Padre de Familia" readonly>
+                    </div>
+                </div>
+
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Teléfono de Emergencia</label>
+                        <input type="text" value="5544-3322" readonly>
+                    </div>
+                </div>
+
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Correo Electrónico</label>
+                        <input type="text" value="carlos.perez@example.com" readonly>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <h3 class="titulo-seccion">Antecedentes Perinatales</h3>
+        <div class="contenedor-formulario">
+            <div class="grid-formulario">
+                
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Tipo de Parto</label>
+                        <input type="text" value="Eutócico (Normal)" readonly>
+                    </div>
+                </div>
+
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Semanas de Gestación</label>
+                        <input type="text" value="39 Semanas" readonly>
+                    </div>
+                </div>
+
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Puntuación APGAR</label>
+                        <input type="text" value="8 / 9" readonly>
+                    </div>
+                </div>
+
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Lugar de Nacimiento</label>
+                        <input type="text" value="Hospital Nacional" readonly>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <h3 class="titulo-seccion">Antecedentes Patológicos y Familiares</h3>
+        <div class="contenedor-formulario">
+            <div class="grid-formulario">
+                
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input" style="color: #dc3545;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Alergias</label>
+                        <input type="text" value="Penicilina" readonly style="color: #dc3545; font-weight: 600;">
+                    </div>
+                </div>
+
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5l-6-6a5.5 5.5 0 0 1 7.78-7.78l1.06 1.06a5.5 5.5 0 0 1 7.78 7.78l-6 6"></path><path d="M14 10l-4 4"></path></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Tratamiento Médico Anterior</label>
+                        <input type="text" value="Paracetamol para fiebre ocasional" readonly>
+                    </div>
+                </div>
+
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Antecedentes Quirúrgicos</label>
+                        <input type="text" value="Ninguno" readonly>
+                    </div>
+                </div>
+
+                <div class="grupo-input-tarjeta">
+                    <div class="icono-input">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="2" ry="2"></rect><line x1="7" y1="8" x2="7" y2="16"></line><line x1="11" y1="8" x2="11" y2="16"></line><line x1="15" y1="8" x2="15" y2="16"></line></svg>
+                    </div>
+                    <div class="contenido-input">
+                        <label>Antecedentes Traumáticos</label>
+                        <input type="text" value="Fractura de radio leve (2024)" readonly>
+                    </div>
+                </div>
+
+                <div class="grupo-input-tarjeta" style="grid-column: 1 / -1; align-items: flex-start;">
+                    <div class="icono-input" style="margin-top: 5px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <div class="contenido-input" style="width: 100%;">
+                        <label>Detalle de Familia (Antecedentes Hereditarios)</label>
+                        <textarea readonly rows="2" style="border: none; outline: none; background: transparent; width: 100%; font-family: inherit; color: #495057; resize: none; margin-top: 5px; font-size: 0.95rem;">Abuelo paterno con hipertensión arterial. Madre sin antecedentes de riesgo. Padre diabético controlado.</textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <h3 class="titulo-seccion">Historia de la Enfermedad</h3>
+        <div class="contenedor-formulario">
+            <div class="grid-formulario">
+                
+                <div class="grupo-input-tarjeta" style="grid-column: 1 / -1; align-items: flex-start;">
+                    <div class="icono-input" style="margin-top: 5px;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    </div>
+                    <div class="contenido-input" style="width: 100%;">
+                        <label>Descripción / Motivo Principal del Expediente</label>
+                        <textarea readonly rows="4" style="border: none; outline: none; background: transparent; width: 100%; font-family: inherit; color: #495057; resize: none; margin-top: 5px; font-size: 1rem;">Paciente masculino de 10 años que acude para evaluación cardiovascular de rutina debido a soplo sistólico detectado por su pediatra de cabecera hace 2 meses. No presenta fatiga al jugar, cianosis ni episodios de síncope.</textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <h3 class="titulo-seccion">Historial de Consultas Médicas</h3>
+        <div class="contenedor-tabla">
+            <table class="tabla-datos">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Tipo de Atención</th>
+                        <th>Médico Especialista</th>
+                        <th>Diagnóstico / Conclusiones</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>05/06/2026</td>
+                        <td>Ecocardiograma Pediátrico</td>
+                        <td>Dr. Alexis Enríquez</td>
+                        <td>Estructura cardíaca normal, flujos estables y sin anomalías congénitas detectadas.</td>
+                        <td class="celda-acciones">
+                            <button class="btn-accion btn-editar">Ver Detalle</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>01/06/2026</td>
+                        <td>Consulta General Inicial</td>
+                        <td>Dr. Alexis Enríquez</td>
+                        <td>Evaluación de rutina por sospecha de soplo funcional. Se ordena ecocardiograma evolutivo.</td>
+                        <td class="celda-acciones">
+                            <button class="btn-accion btn-editar">Ver Detalle</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+ <div id="modal-informe" class="modal-oculto">
+        <div class="modal-contenido">
+            
+            <div class="modal-header">
+                <h3>Detalle de la Consulta</h3>
+                <button class="btn-cerrar-modal" id="btn-cerrar">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                
+                <div class="info-resumen">
+                    <p><strong>Fecha de Consulta:</strong> 05/06/2026</p>
+                    <p><strong>Motivo de Consulta:</strong> Evaluación de rutina por sospecha de soplo funcional detectado en clínica general.</p>
+                </div>
+                
+                <hr class="divisor-modal">
+
+                <h4>Signos Vitales y Antropometría</h4>
+                <div class="grid-vitales">
+                    <div class="dato-vital">
+                        <span>Peso</span>
+                        <strong>32.5 kg</strong>
+                    </div>
+                    <div class="dato-vital">
+                        <span>Talla</span>
+                        <strong>135 cm</strong>
+                    </div>
+                    <div class="dato-vital">
+                        <span>Frec. Cardíaca</span>
+                        <strong>85 lpm</strong>
+                    </div>
+                    <div class="dato-vital">
+                        <span>Presión Arterial</span>
+                        <strong>110/70 mmHg</strong>
+                    </div>
+                    <div class="dato-vital">
+                        <span>Saturación O2</span>
+                        <strong>98 %</strong>
+                    </div>
+                </div>
+
+                <hr class="divisor-modal">
+
+                <h4>Examen Físico</h4>
+                <div class="texto-informe">
+                    <p>Paciente consciente, activo y reactivo. Mucosas húmedas. Tórax simétrico, buena entrada de aire bilateral. Ruidos cardíacos rítmicos, de buen tono e intensidad. Se ausculta soplo sistólico eyectivo I/VI en foco pulmonar, sin irradiación. Resto del examen sin alteraciones.</p>
+                </div>
+
+                <h4>Diagnóstico</h4>
+                <div class="texto-informe">
+                    <p>1. Soplo de Still (Soplo funcional benigno).<br>2. Desarrollo pondoestatural adecuado para la edad.</p>
+                </div>
+
+                <h4>Conducta (Plan / Tratamiento)</h4>
+                <div class="texto-informe">
+                    <p>Tranquilizar a los padres respecto a la benignidad del hallazgo. No requiere restricción de actividad física. Se indica mantener dieta balanceada y control pediátrico en 1 año.</p>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-accion btn-editar">Imprimir Receta / Informe</button>
+                <button class="btn-accion btn-desactivar" id="btn-cerrar-abajo">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="contenedor-footer"></div>
+</body>
+</html>

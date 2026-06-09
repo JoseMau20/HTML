@@ -26,23 +26,35 @@
             <img src="../Imgs/Logo.avif" alt="Logo Clínica" class="logo-login">
         </div>
 
-        <div class="login-form-columna">
-            <h2>Iniciar Sesión</h2>
-                <form id="form-login" onsubmit="Login(event)">
-                    <div class="grupo-input">
-                    <label for="usuario">Usuario</label>
-                    <input type="text" id="usuario" placeholder="Ingresa tu usuario" required>
-                </div>
-                <div class="grupo-input" >
-                    <label for="contra">Contraseña</label>
+    <div class="login-form-columna">
+        <h2>Iniciar Sesión</h2>
+        <form id="form-login" onsubmit="Login(event)">
+            
+            <div class="grupo-input">
+                <label for="usuario">Usuario</label>
+                <input type="text" id="usuario" placeholder="Ingresa tu usuario" required>
+            </div>
+            
+            <div class="grupo-input">
+                <label for="contra">Contraseña</label>
+                <div class="caja-password">
                     <input type="password" id="contra" placeholder="Ingresa tu contraseña" required>
+                    <button type="button" class="btn-ver-password" title="Mostrar contraseña">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
                 </div>
-                <div class="opciones-login">
-                    <a href="#" class="link-olvido">¿Olvidaste tu contraseña?</a>
-                </div>
-                <button type="submit" class="boton-ingresar">Ingresar</button>
-            </form>
-        </div>
+            </div>
+            
+            <div class="opciones-login">
+                <a href="#" class="link-olvido">¿Olvidaste tu contraseña?</a>
+            </div>
+            
+            <button type="submit" class="boton-ingresar">Ingresar</button>
+        </form>
+    </div>
 
     </div>
 </main>

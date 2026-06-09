@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,13 @@
     <div id="contenedor-menu"></div>
 
     <main class="principal">
-        <h2>Gestión de Pacientes</h2>
+        
+        <div class="encabezado-vistas">
+            <h2>Gestión de Pacientes</h2>
+            <a href="registro-paciente.html" class="btn-accion btn-editar" style="text-decoration: none;">
+                + Nuevo Paciente
+            </a>
+        </div>
 
         <div class="contenedor-tabla">
             <table class="tabla-datos">
@@ -37,7 +43,21 @@
                         <td>O-</td>
                         <td>Masculino</td>
                         <td class="celda-acciones">
-                            <button class="btn-accion btn-editar">Informe</button>
+                            <button class="btn-accion btn-editar" onclick="informe(event)">Expediente</button>
+                            <button class="btn-accion btn-eliminar">Eliminar</button>
+                        </td>
+                    </tr>
+
+                   <tr>
+                        <td>2</td>
+                        <td>Juan</td>
+                        <td>Pérez</td>
+                        <td>11</td>
+                        <td>O-</td>
+                        <td>Masculino</td>
+                        <td class="celda-acciones">
+                            <button class="btn-accion btn-editar" onclick="nuevoinforme(event)">Expediente</button>
+                            <button class="btn-accion btn-eliminar">Eliminar</button>
                         </td>
                     </tr>
                 </tbody>

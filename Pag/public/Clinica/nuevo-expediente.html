@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Expediente Inicial</title>
+    <link rel="stylesheet" href="../css/sistema.css">
+    <script defer src="../app.js"></script>
+</head>
+<body class="menu-abierto">
+    
+    <div id="contenedor-header"></div>
+    <div id="contenedor-menu"></div>
+
+    <main class="principal">
+
+
+        <div class="encabezado-vistas">
+            <div>
+                <h2>Crear Expediente Inicial</h2>
+                <p class="subtitulo-vista">Paciente: Juan Pérez Gómez | 10 años</p>
+            </div>
+            <div class="celda-acciones">
+                <button type="submit" form="form-nuevo-expediente" class="btn-accion btn-editar">Guardar Expediente</button>
+                <a href="pacientes.html" class="btn-accion btn-desactivar" style="text-decoration: none;">Cancelar</a>
+            </div>
+        </div>
+
+        <form id="form-nuevo-expediente">
+
+            <h3 class="titulo-seccion">1. Antecedentes Perinatales</h3>
+            <div class="contenedor-formulario">
+                <div class="grid-formulario">
+                    
+                    <div class="grupo-input-tarjeta">
+                        <div class="icono-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        </div>
+                        <div class="contenido-input">
+                            <label for="tipo_parto">Tipo de Parto</label>
+                            <select id="tipo_parto" required>
+                                <option value="" disabled selected>Seleccione...</option>
+                                <option value="eutocico">Eutócico (Vaginal Normal)</option>
+                                <option value="cesarea">Cesárea</option>
+                                <option value="instrumentado">Instrumentado (Fórceps/Vacum)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grupo-input-tarjeta">
+                        <div class="icono-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        </div>
+                        <div class="contenido-input">
+                            <label for="semanas_gestacion">Semanas de Gestación</label>
+                            <input type="number" id="semanas_gestacion" placeholder="Ej. 39" required min="20" max="45">
+                        </div>
+                    </div>
+
+                    <div class="grupo-input-tarjeta">
+                        <div class="icono-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                        </div>
+                        <div class="contenido-input">
+                            <label for="apgar">Puntuación APGAR</label>
+                            <input type="text" id="apgar" placeholder="Ej. 8/9">
+                        </div>
+                    </div>
+
+                    <div class="grupo-input-tarjeta">
+                        <div class="icono-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        </div>
+                        <div class="contenido-input">
+                            <label for="lugar_nacimiento">Lugar de Nacimiento</label>
+                            <input type="text" id="lugar_nacimiento" placeholder="Hospital o Clínica" required>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h3 class="titulo-seccion">2. Antecedentes Patológicos y Familiares</h3>
+            <div class="contenedor-formulario">
+                <div class="grid-formulario">
+                    
+                    <div class="grupo-input-tarjeta">
+                        <div class="icono-input" style="color: #dc3545;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        </div>
+                        <div class="contenido-input">
+                            <label for="alergias_paciente">Alergias</label>
+                            <input type="text" id="alergias_paciente" placeholder="Medicamentos, alimentos..." required>
+                        </div>
+                    </div>
+
+                    <div class="grupo-input-tarjeta">
+                        <div class="icono-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20.5l-6-6a5.5 5.5 0 0 1 7.78-7.78l1.06 1.06a5.5 5.5 0 0 1 7.78 7.78l-6 6"></path><path d="M14 10l-4 4"></path></svg>
+                        </div>
+                        <div class="contenido-input">
+                            <label for="tratamiento_medico">Tratamiento Médico Anterior</label>
+                            <input type="text" id="tratamiento_medico" placeholder="Enfermedades previas o medicación actual">
+                        </div>
+                    </div>
+
+                    <div class="grupo-input-tarjeta">
+                        <div class="icono-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+                        </div>
+                        <div class="contenido-input">
+                            <label for="tratamiento_quirurgico">Antecedentes Quirúrgicos</label>
+                            <input type="text" id="tratamiento_quirurgico" placeholder="Operaciones previas">
+                        </div>
+                    </div>
+
+                    <div class="grupo-input-tarjeta">
+                        <div class="icono-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="8" rx="2" ry="2"></rect><line x1="7" y1="8" x2="7" y2="16"></line><line x1="11" y1="8" x2="11" y2="16"></line><line x1="15" y1="8" x2="15" y2="16"></line></svg>
+                        </div>
+                        <div class="contenido-input">
+                            <label for="tratamiento_traumatico">Antecedentes Traumáticos</label>
+                            <input type="text" id="tratamiento_traumatico" placeholder="Fracturas, golpes fuertes...">
+                        </div>
+                    </div>
+
+                    <div class="grupo-input-tarjeta" style="grid-column: 1 / -1; align-items: flex-start;">
+                        <div class="icono-input" style="margin-top: 5px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </div>
+                        <div class="contenido-input" style="width: 100%;">
+                            <label for="detalle_familia">Detalle de Familia (Antecedentes Hereditarios)</label>
+                            <textarea id="detalle_familia" rows="2" placeholder="Enfermedades de los padres, abuelos..." required></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h3 class="titulo-seccion">3. Historia de la Enfermedad</h3>
+            <div class="contenedor-formulario">
+                <div class="grid-formulario">
+                    
+                    <div class="grupo-input-tarjeta" style="grid-column: 1 / -1; align-items: flex-start;">
+                        <div class="icono-input" style="margin-top: 5px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        </div>
+                        <div class="contenido-input" style="width: 100%;">
+                            <label for="historia_enfermedad">Descripción General / Inicio del Padecimiento</label>
+                            <textarea id="historia_enfermedad" rows="4" placeholder="Describa de forma general la historia de la enfermedad actual del paciente..." required></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+    </main>
+    
+    <div id="contenedor-footer"></div>
+</body>
+</html>

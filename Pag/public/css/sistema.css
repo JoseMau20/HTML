@@ -280,6 +280,13 @@ footer {
     align-items: center;
 }
 
+.acciones-formulario {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
 .btn-accion {
     padding: 10px 18px;
     border: none;
@@ -338,6 +345,426 @@ footer {
 
 .btn-eliminar:hover {
     background-color: #c82333;
+}
+
+.grupo-input-tarjeta {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 8px 15px;
+    background-color: #ffffff;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.grupo-input-tarjeta:focus-within {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.15);
+}
+
+.icono-input {
+    width: 20px;
+    height: 20px;
+    color: #628f74;
+    margin-right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icono-input svg {
+    width: 100%;
+    height: 100%;
+}
+
+.contenido-input {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.contenido-input label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #6c757d;
+    margin-bottom: 2px;
+    text-transform: capitalize;
+    margin-left: 2px;
+}
+
+.contenido-input input {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1rem;
+    color: #212529;
+    padding: 0;
+    width: 100%;
+    font-family: inherit;
+}
+
+.encabezado-vistas {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.btn-ver-password {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #adb5bd;
+    padding: 5px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.btn-ver-password:hover {
+    color: #495057;
+    background-color: #f8f9fa;
+}
+
+.btn-ver-password svg {
+    width: 20px;
+    height: 20px;
+}
+.encabezado-vistas h2 {
+    margin-bottom: 15px;
+}
+
+.principal h2{
+    text-align: center;
+}
+
+
+.dashboard-superior {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.tarjeta-metrica {
+    flex: 1;
+    min-width: 200px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border-left: 5px solid #2b3a55;
+    /* Borde azul por defecto */
+}
+
+.tarjeta-metrica.exito {
+    border-left-color: #27ae60;
+}
+
+.tarjeta-metrica.alerta {
+    border-left-color: #ffc107;
+}
+
+.tarjeta-metrica h3 {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tarjeta-metrica p {
+    margin: 10px 0 0 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2b3a55;
+}
+
+.tarjeta-filtros {
+    flex: 2;
+    min-width: 350px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+}
+
+.tarjeta-filtros .grupo-input {
+    margin: 0;
+    flex: 1;
+}
+
+.tarjeta-filtros .grupo-input input,
+.tarjeta-filtros .grupo-input select {
+    padding: 10px 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.estado-pendiente {
+    padding: 7px 15px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+    text-align: center;
+    background-color: #fff3cd;
+    color: #856404;
+}
+.encabezado-vistas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.encabezado-vistas h2 {
+    margin: 0;
+    color: #2b3a55;
+}
+
+.subtitulo-vista {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.titulo-seccion {
+    color: #2b3a55;
+    margin: 30px 0 15px 0;
+    font-size: 1.25rem;
+    border-bottom: 2px solid #f2f2f2;
+    padding-bottom: 8px;
+}
+
+/* Comportamiento de Tarjetas "Solo Lectura" (Expediente) */
+.contenido-input input[readonly],
+.contenido-input textarea[readonly] {
+    cursor: default;
+    color: #495057;
+    font-weight: 500;
+}
+
+/* Evitamos el resplandor amarillo si es de solo lectura */
+.grupo-input-tarjeta:has(input[readonly]):focus-within,
+.grupo-input-tarjeta:has(textarea[readonly]):focus-within {
+    border-color: #ced4da;
+    box-shadow: none;
+}
+
+/* Fondo sutil para indicar que está bloqueado */
+.grupo-input-tarjeta:has(input[readonly]),
+.grupo-input-tarjeta:has(textarea[readonly]) {
+    background-color: #fcfcfc;
+}
+
+/* ==========================================
+   ESTILOS PARA MODAL (VENTANA EMERGENTE)
+   ========================================== */
+
+.modal-oculto {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-oculto.mostrar {
+    display: flex;
+}
+
+.modal-contenido {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: aparecerModal 0.3s ease-out;
+}
+
+@keyframes aparecerModal {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    background-color: #2b3a55;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.btn-cerrar-modal {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.btn-cerrar-modal:hover {
+    color: #ffc107;
+}
+
+.modal-body {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.info-resumen p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.divisor-modal {
+    border: 0;
+    border-top: 1px dashed #ddd;
+    margin: 15px 0;
+}
+
+.modal-body h4 {
+    color: #2b3a55;
+    margin: 0 0 10px 0;
+    font-size: 1rem;
+}
+
+.texto-informe p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+.modal-footer {
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    border-top: 1px solid #eee;
+}
+
+.selector-tipo-familiar {
+    display: flex;
+    background-color: #f1f3f5;
+    border-radius: 8px;
+    padding: 5px;
+    margin-bottom: 25px;
+    gap: 5px;
+}
+
+.selector-tipo-familiar .radio-opcion {
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+}
+
+.selector-tipo-familiar .radio-opcion input {
+    position: absolute;
+    opacity: 0;
+}
+
+.selector-tipo-familiar .radio-opcion span {
+    display: block;
+    text-align: center;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+.selector-tipo-familiar .radio-opcion input:checked+span {
+    background-color: #ffffff;
+    color: #2b3a55;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.vista-dinamica {
+    display: none;
+    animation: fadeDinamico 0.3s ease-in-out;
+}
+
+.vista-dinamica.activa {
+    display: block;
+}
+.grupo-textarea {
+    grid-column: 1 / -1;
+    align-items: flex-start;
+}
+
+.icono-textarea {
+    margin-top: 5px;
+}
+
+.contenido-textarea {
+    width: 100%;
+}
+
+.btn-enlace {
+    text-decoration: none;
+}
+
+.contenido-input textarea {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 1rem;
+    color: #212529;
+    padding: 0;
+    width: 100%;
+    font-family: inherit;
+    resize: vertical;
+    margin-top: 5px;
+}
+
+.grupo-input-tarjeta:focus-within {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.15);
+}
+
+@keyframes fadeDinamico {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }   
 }
 
 @media (max-width: 768px) {

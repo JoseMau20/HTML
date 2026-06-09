@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facturacion</title>
+    <link rel="stylesheet" href="../css/sistema.css">
+    <script defer src="../app.js"></script>
+</head>
+<body class="menu-abierto">
+    <div id="contenedor-header"></div>
+    <div id="contenedor-menu"></div>
+
+    <main class="principal">
+    
+    <div class="encabezado-vistas">
+        <h2>Control de Facturación</h2>
+        <p style="color: #6c757d; font-size: 0.9rem;">Las facturas son generadas automáticamente al finalizar la consulta médica.</p>
+    </div>
+
+    <div class="dashboard-superior">
+        
+        <div class="tarjeta-metrica exito">
+            <h3>Total Cobrado (General)</h3>
+            <p>Q 125,450.00</p>
+        </div>
+
+        <div class="tarjeta-metrica alerta">
+            <h3>Cobrado este Mes</h3>
+            <p>Q 14,200.00</p>
+        </div>
+
+        <div class="tarjeta-filtros">
+            <div class="grupo-input">
+                <label for="mes-filtro">Filtrar por Mes</label>
+                <select name="mes" id="">
+                    <option value="todos" selected disabled>Todos los meses</option>
+                    <option value="enero">Enero</option>
+                    <option value="febrero">Febrero</option>
+                    <option value="marzo">Marzo</option>
+                    <option value="abril">Abril</option>
+                    <option value="mayo">Mayo</option>
+                    <option value="junio">Junio</option>
+                    <option value="julio">Julio</option>
+                    <option value="agosto">Agosto</option>
+                    <option value="septiembre">Septiembre</option>
+                    <option value="octubre">Octubre</option>
+                    <option value="noviembre">Noviembre</option>
+                    <option value="diciembre">Diciembre</option>
+                </select>
+            </div>
+            
+            <div class="grupo-input">
+                <label for="estado-filtro">Estado</label>
+                <select id="estado-filtro">
+                    <option value="todos">Todas las facturas</option>
+                    <option value="pagada">Pagadas</option>
+                    <option value="pendiente">Pendientes</option>
+                    <option value="anulada">Anuladas</option>
+                </select>
+            </div>
+
+            <button class="btn-accion btn-desactivar" id="btn-filtrar">Aplicar Filtro</button>
+        </div>
+
+    </div>
+
+    <div class="contenedor-tabla">
+        <table class="tabla-datos">
+            <thead>
+                <tr>
+                    <th>N° Orden</th>
+                    <th>Fecha</th>
+                    <th>Paciente</th>
+                    <th>Concepto Principal</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-facturas-body">
+                
+                <tr>
+                    <td>ORD-1045</td>
+                    <td>08/06/2026</td>
+                    <td>Lucas Méndez</td>
+                    <td>Consulta + Ecocardiograma</td>
+                    <td><strong>Q750.00</strong></td>
+                    <td><span class="estado-pendiente">Pendiente</span></td>
+                    <td class="celda-acciones">
+                        <button class="btn-accion btn-editar" title="Ingresar NIT y Cobrar">Cobrar</button>
+                        <button class="btn-accion btn-eliminar" title="Anular orden">Anular</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>FAC-1042</td>
+                    <td>08/06/2026</td>
+                    <td>Mateo López</td>
+                    <td>Ecocardiograma Pediátrico</td>
+                    <td><strong>Q450.00</strong></td>
+                    <td><span class="estado-activo">Pagada</span></td>
+                    <td class="celda-acciones">
+                        <button class="btn-accion btn-desactivar" title="Ver Detalles">Ver</button>
+                        <button class="btn-accion btn-desactivar" title="Reimprimir Factura">Imprimir</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>FAC-1041</td>
+                    <td>07/06/2026</td>
+                    <td>Diego Castro</td>
+                    <td>Electrocardiograma</td>
+                    <td><strong>Q200.00</strong></td>
+                    <td><span class="estado-inactivo">Anulada</span></td>
+                    <td class="celda-acciones">
+                        <button class="btn-accion btn-desactivar" title="Ver detalles de anulación">Ver Detalle</button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+    <div id="contenedor-footer"></div>
+</body>
+</html>

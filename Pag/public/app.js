@@ -95,3 +95,98 @@ function Login(event)
     event.preventDefault();
     window.open("Clinica/inicio.html", "_self");
 }
+
+document.addEventListener("click", function (e) {
+  const btnVer = e.target.closest(".btn-ver-password");
+
+  if (btnVer) {
+    const contenedor = btnVer.parentElement;
+
+    const inputPassword = contenedor.querySelector("input");
+    const iconoOjo = btnVer.querySelector("svg");
+
+    if (inputPassword && iconoOjo) {
+      if (inputPassword.type === "password") {
+        inputPassword.type = "text";
+        iconoOjo.innerHTML = `
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                `;
+      } else {
+        inputPassword.type = "password";
+        iconoOjo.innerHTML = `
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                `;
+      }
+    }
+  }
+});
+
+function informe(event) 
+{
+  event.preventDefault();
+  window.open("informe.html", "_self");
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('modal-informe');
+    const btnCerrar = document.getElementById('btn-cerrar');
+    const btnCerrarAbajo = document.getElementById('btn-cerrar-abajo');
+    
+    if (!modal) return;
+
+    const botonesVerDetalle = document.querySelectorAll('.tabla-datos .btn-editar');
+
+    botonesVerDetalle.forEach(boton => {
+        boton.addEventListener('click', (e) => {
+            e.preventDefault(); // Evita que la página recargue si es un enlace
+            modal.classList.add('mostrar');
+        });
+    });
+
+    const cerrarModal = () => {
+        modal.classList.remove('mostrar');
+    };
+
+    btnCerrar.addEventListener('click', cerrarModal);
+    btnCerrarAbajo.addEventListener('click', cerrarModal);
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            cerrarModal();
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const radiosTipoFamiliar = document.querySelectorAll(
+    'input[name="tipo_ingreso_familiar"]',
+  );
+
+  const vistaExistente = document.getElementById("vista-familiar-existente");
+  const vistaNuevo = document.getElementById("vista-familiar-nuevo");
+
+  if (radiosTipoFamiliar.length > 0) {
+    radiosTipoFamiliar.forEach((radio) => {
+      radio.addEventListener("change", (e) => {
+
+        vistaExistente.classList.remove("activa");
+        vistaNuevo.classList.remove("activa");
+
+        if (e.target.value === "existente") {
+          vistaExistente.classList.add("activa");
+        }
+        else if (e.target.value === "nuevo") {
+          vistaNuevo.classList.add("activa");
+        }
+      });
+    });
+  }
+});
+
+function nuevoinforme(event)
+{
+  event.preventDefault();
+  window.open("nuevo-expediente.html", "_self");
+}

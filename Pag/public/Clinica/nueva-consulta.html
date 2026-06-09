@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Consulta Médica - Clínica Pediátrica</title>
+    <link rel="stylesheet" href="../css/sistema.css">
+    <script defer src="../app.js"></script>
+</head>
+<body class="menu-abierto">
+
+    <div id="contenedor-header"></div>
+    <div id="contenedor-menu"></div>
+
+    <main class="principal">
+        
+        <div class="encabezado-vistas">
+            <div>
+                <h2>Nueva Consulta Médica</h2>
+                <p class="subtitulo-vista">Paciente: Juan Pérez Gómez | Expediente: EXP-001</p>
+            </div>
+            <div class="celda-acciones">
+                <button type="submit" form="form-nueva-consulta" class="btn-accion btn-editar">Guardar Consulta</button>
+                <a href="informe.html" class="btn-accion btn-desactivar btn-enlace">Cancelar</a>
+            </div>
+        </div>
+
+        <form id="form-nueva-consulta">
+
+            <h3 class="titulo-seccion">1. Motivo de la Consulta</h3>
+            <div class="contenedor-formulario">
+                <div class="grid-formulario">
+                    <div class="grupo-input-tarjeta grupo-textarea">
+                        <div class="icono-input icono-textarea">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        </div>
+                        <div class="contenido-input contenido-textarea">
+                            <label for="motivo_consulta">¿Por qué acude el paciente hoy?</label>
+                            <textarea id="motivo_consulta" rows="2" placeholder="Ej. Evaluación de rutina, fiebre, dolor de pecho..." required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="titulo-seccion">2. Signos Vitales</h3>
+            <div class="contenedor-formulario">
+                <div class="grid-formulario">
+                    
+                    <div class="grupo-input-tarjeta">
+                        <div class="icono-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        </div>
+                        <div class="contenido-input">
+                            <label for="peso_consulta">Peso (kg)</label>
+                            <input type="number" step="0.01" id="peso_consulta" placeholder="0.00" required>
+                        </div>
+                    </div>
+
+                    <div class="grupo-input-tarjeta">
+                        <div class="icono-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>
+                        </div>
+                        <div class="contenido-input">
+                            <label for="talla_consulta">Talla (cm)</label>
+                            <input type="number" step="0.1" id="talla_consulta" placeholder="0.0" required>
+                        </div>
+                    </div>
+
+                    <div class="grupo-input-tarjeta">
+                        <div class="icono-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                        </div>
+                        <div class="contenido-input">
+                            <label for="frecuencia_cardiaca">Frecuencia Cardíaca (lpm)</label>
+                            <input type="number" id="frecuencia_cardiaca" placeholder="0" required>
+                        </div>
+                    </div>
+
+                    <div class="grupo-input-tarjeta">
+                        <div class="icono-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <div class="contenido-input">
+                            <label for="presion_arterial">Presión Arterial (mmHg)</label>
+                            <input type="text" id="presion_arterial" placeholder="120/80" required>
+                        </div>
+                    </div>
+
+                    <div class="grupo-input-tarjeta">
+                        <div class="icono-input">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                        </div>
+                        <div class="contenido-input">
+                            <label for="o2">Saturación O2 (%)</label>
+                            <input type="number" id="o2" placeholder="0">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h3 class="titulo-seccion">3. Examen Físico</h3>
+            <div class="contenedor-formulario">
+                <div class="grid-formulario">
+                    <div class="grupo-input-tarjeta grupo-textarea">
+                        <div class="icono-input icono-textarea">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h4l2-2 2 4 2-2 2 4 2-2h4"></path></svg>
+                        </div>
+                        <div class="contenido-input contenido-textarea">
+                            <label for="examen_fisico">Hallazgos Clínicos</label>
+                            <textarea id="examen_fisico" rows="4" placeholder="Describa el estado general, auscultación, signos..." required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="titulo-seccion">4. Conclusiones y Plan</h3>
+            <div class="contenedor-formulario">
+                <div class="grid-formulario">
+                    
+                    <div class="grupo-input-tarjeta grupo-textarea">
+                        <div class="icono-input icono-textarea">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                        </div>
+                        <div class="contenido-input contenido-textarea">
+                            <label for="diagnostico">Diagnóstico</label>
+                            <textarea id="diagnostico" rows="2" placeholder="Diagnóstico principal y secundarios..." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="grupo-input-tarjeta grupo-textarea">
+                        <div class="icono-input icono-textarea">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        </div>
+                        <div class="contenido-input contenido-textarea">
+                            <label for="conducta">Conducta (Tratamiento y Receta)</label>
+                            <textarea id="conducta" rows="3" placeholder="Medicamentos, exámenes solicitados, recomendaciones..." required></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+
+    </main>
+
+    <div id="contenedor-footer"></div>
+</body>
+</html>
