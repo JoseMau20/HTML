@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Recolección Zona 1 — Xela</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.3.4/mqtt.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+
+<style>
+  :root {
+    --bg:        #0f1117;
+    --surface:   #181c24;
+    --surface2:  #1f2430;
+    --border:    rgba(255,255,255,0.07);
+    --border2:   rgba(255,255,255,0.13);
+    --text:      #e8eaf0;
+    --muted:     #7a8099;
+    --green:     #4ade80;
+    --green-bg:  rgba(74,222,128,0.1);
+    --red:       #f87171;
+    --red-bg:    rgba(248,113,113,0.1);
+    --amber:     #fbbf24;
+    --amber-bg:  rgba(251,191,36,0.1);
+    --blue:      #60a5fa;
+    --blue-bg:   rgba(96,165,250,0.1);
+    --accent:    #4ade80;
+    --radius:    10px;
+    --radius-lg: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    min-height: 100vh;
+  }
+
+  /* ── Layout ── */
+  .shell {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+  }
+
+  /* ── Header ── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .logo-area { display: flex; align-items: center; gap: 10px; }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--green-bg);
+    border: 1px solid rgba(74,222,128,0.25);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--green); font-size: 18px;
+  }
+  header h1 { font-size: 17px; font-weight: 600; color: var(--text); }
+  header p  { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+  .mqtt-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 500;
+    border: 1px solid var(--border2);
+  }
+  .mqtt-badge .dot { width: 7px; height: 7px; border-radius: 50%; }
+  .mqtt-badge.connecting { color: var(--amber); border-color: rgba(251,191,36,.25); }
+  .mqtt-badge.connecting .dot { background: var(--amber); }
+  .mqtt-badge.online { color: var(--green); border-color: rgba(74,222,128,.25); }
+  .mqtt-badge.online .dot { background: var(--green); animation: pulse 2s infinite; }
+  .mqtt-badge.offline { color: var(--red); border-color: rgba(248,113,113,.25); }
+  .mqtt-badge.offline .dot { background: var(--red); }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+  }
+
+  /* ── KPIs ── */
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px,1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+  }
+  .kpi .kpi-label { font-size: 11px; color: var(--muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .05em; }
+  .kpi .kpi-value { font-size: 26px; font-weight: 700; line-height: 1; }
+  .kpi .kpi-sub   { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .kpi.red   .kpi-value { color: var(--red); }
+  .kpi.green .kpi-value { color: var(--green); }
+  .kpi.amber .kpi-value { color: var(--amber); }
+  .kpi.blue  .kpi-value { color: var(--blue); }
+
+  /* ── Main grid ── */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  @media(max-width: 800px) { .main-grid { grid-template-columns: 1fr; } }
+
+  /* ── Panel ── */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .panel-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-head h2 { font-size: 13px; font-weight: 600; color: var(--text); }
+  .panel-body { padding: 14px 16px; }
+
+  /* ── Mapa ── */
+  #map { width: 100%; height: 420px; }
+
+  /* ── Leyenda del mapa ── */
+  .leyenda {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    padding: 10px 16px;
+    border-top: 1px solid var(--border);
+  }
+  .leyenda-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+  .leyenda-dot  { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── Puntos fijos sidebar ── */
+  .punto-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: opacity .15s;
+  }
+  .punto-item:last-child { border-bottom: none; }
+  .punto-item:hover { opacity: .8; }
+
+  .punto-ico {
+    width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    transition: background .2s, color .2s;
+  }
+  .punto-ico.vacio  { background: var(--blue-bg);  color: var(--blue);  border: 1px solid rgba(96,165,250,.3); }
+  .punto-ico.lleno  { background: var(--red-bg);   color: var(--red);   border: 1px solid rgba(248,113,113,.3); }
+
+  .punto-info { flex: 1; min-width: 0; }
+  .punto-nombre { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .punto-dir    { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+  .punto-toggle {
+    padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600;
+    border: 1px solid; cursor: pointer; transition: all .15s; white-space: nowrap;
+    background: transparent;
+  }
+  .punto-toggle.vacio { color: var(--muted); border-color: var(--border2); }
+  .punto-toggle.vacio:hover { color: var(--red); border-color: rgba(248,113,113,.4); }
+  .punto-toggle.lleno { color: var(--red); border-color: rgba(248,113,113,.4); background: var(--red-bg); }
+  .punto-toggle.lleno:hover { color: var(--muted); border-color: var(--border2); background: transparent; }
+
+  /* ── Alertas ── */
+  .bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media(max-width: 640px) { .bottom-grid { grid-template-columns: 1fr; } }
+
+  .alerta-row {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 8px 0; border-bottom: 1px solid var(--border);
+  }
+  .alerta-row:last-child { border-bottom: none; }
+  .alerta-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; background: var(--red); }
+  .alerta-lugar { font-size: 13px; color: var(--text); }
+  .alerta-meta  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* ── Ruta ── */
+  .ruta-paso {
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 0; border-bottom: 1px solid var(--border);
+  }
+  .ruta-paso:last-child { border-bottom: none; }
+  .ruta-num {
+    width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+    background: var(--green-bg); color: var(--green);
+    border: 1px solid rgba(74,222,128,.3);
+    font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ruta-nombre { font-size: 13px; color: var(--text); }
+  .ruta-dist   { font-size: 11px; color: var(--muted); margin-left: auto; }
+
+  /* ── Botón optimizar ── */
+  .btn-optimizar {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 11px;
+    border-radius: var(--radius);
+    background: var(--green-bg);
+    border: 1px solid rgba(74,222,128,.3);
+    color: var(--green); font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all .15s;
+    margin-bottom: 14px;
+  }
+  .btn-optimizar:hover { background: rgba(74,222,128,.18); }
+  .btn-optimizar:disabled { opacity: .35; cursor: not-allowed; }
+  .btn-optimizar.done {
+    background: rgba(74,222,128,.2);
+    border-color: rgba(74,222,128,.5);
+  }
+
+  /* ── Empty state ── */
+  .empty { font-size: 12px; color: var(--muted); padding: 8px 0; }
+
+  /* ── Chip de estado ESP32 ── */
+  .esp-chip {
+    font-size: 11px; padding: 3px 8px; border-radius: 5px;
+    background: var(--red-bg); color: var(--red);
+    border: 1px solid rgba(248,113,113,.3);
+  }
+
+  /* ── Leaflet overrides ── */
+  .leaflet-container { background: #1a1f2b !important; }
+  .leaflet-popup-content-wrapper {
+    background: var(--surface2) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--border2) !important;
+    border-radius: var(--radius) !important;
+    box-shadow: none !important;
+  }
+  .leaflet-popup-tip { background: var(--surface2) !important; }
+  .leaflet-popup-content { margin: 10px 14px !important; font-size: 13px !important; }
+  .pop-title { font-weight: 600; margin-bottom: 4px; }
+  .pop-meta  { font-size: 11px; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- Header -->
+  <header>
+    <div class="logo-area">
+      <div class="logo-icon"><i class="ti ti-truck" aria-hidden="true"></i></div>
+      <div>
+        <h1>Recolección Zona 1 — Xela</h1>
+        <p>Panel de control en tiempo real · Quetzaltenango</p>
+      </div>
+    </div>
+    <div id="mqtt-badge" class="mqtt-badge connecting">
+      <div class="dot"></div>
+      <span>Conectando...</span>
+    </div>
+  </header>
+
+  <!-- KPIs -->
+  <div class="kpis">
+    <div class="kpi red">
+      <div class="kpi-label">Contenedores llenos</div>
+      <div class="kpi-value" id="kpi-llenos">0</div>
+      <div class="kpi-sub">pendientes de recolectar</div>
+    </div>
+    <div class="kpi blue">
+      <div class="kpi-label">Puntos fijos</div>
+      <div class="kpi-value">5</div>
+      <div class="kpi-sub">Zona 1 registrados</div>
+    </div>
+    <div class="kpi amber">
+      <div class="kpi-label">Batería ESP32</div>
+      <div class="kpi-value" id="kpi-bat">--</div>
+      <div class="kpi-sub" id="kpi-bat-sub">sin datos aún</div>
+    </div>
+    <div class="kpi green">
+      <div class="kpi-label">Última alerta</div>
+      <div class="kpi-value" id="kpi-hora" style="font-size:18px">--:--</div>
+      <div class="kpi-sub" id="kpi-lugar">esperando señal</div>
+    </div>
+  </div>
+
+  <!-- Mapa + puntos fijos -->
+  <div class="main-grid">
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2><i class="ti ti-map-2" aria-hidden="true" style="margin-right:6px"></i>Mapa en vivo</h2>
+        <span id="esp-chip" style="display:none" class="esp-chip">ESP32 activo</span>
+      </div>
+      <div id="map"></div>
+      <div class="leyenda">
+        <div class="leyenda-item"><div class="leyenda-dot" style="background:#60a5fa"></div>Punto fijo — vacío</div>
+        <div class="leyenda-item"><div class="leyenda-dot" style="background:#f87171"></div>Punto fijo — lleno</div>
+        <div class="leyenda-item"><div class="leyenda-dot" style="background:#fbbf24"></div>ESP32 — alerta GPS</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2><i class="ti ti-trash" aria-hidden="true" style="margin-right:6px"></i>Contenedores fijos</h2>
+        <span style="font-size:11px; color:var(--muted)">toca para cambiar estado</span>
+      </div>
+      <div class="panel-body" style="padding-top:6px">
+        <div id="lista-puntos"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Botón optimizar -->
+  <button class="btn-optimizar" id="btn-ruta" onclick="optimizarRuta()">
+    <i class="ti ti-route" aria-hidden="true" style="font-size:18px"></i>
+    Optimizar ruta de recolección
+  </button>
+
+  <!-- Alertas + Ruta -->
+  <div class="bottom-grid">
+
+    <div class="panel">
+      <div class="panel-head"><h2><i class="ti ti-bell" aria-hidden="true" style="margin-right:6px"></i>Alertas ESP32</h2></div>
+      <div class="panel-body">
+        <div id="lista-alertas"><p class="empty">Sin alertas aún — esperando señal del ESP32...</p></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head"><h2><i class="ti ti-list-numbers" aria-hidden="true" style="margin-right:6px"></i>Ruta sugerida</h2></div>
+      <div class="panel-body">
+        <div id="lista-ruta"><p class="empty">Presiona "Optimizar ruta" para calcular el orden de recolección.</p></div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /shell -->
+
+<script>
+// ── Datos ─────────────────────────────────────────────────────
+const MQTT_BROKER = "wss://broker.emqx.io:8084/mqtt";
+const MQTT_TOPIC  = "xela/recoleccion/alerta";
+
+const PUNTOS_FIJOS = [
+  { id:"PF-01", nombre:"Parque Centro América",   dir:"Zona 1, frente al parque", lat:14.83446, lng:-91.51829 },
+  { id:"PF-02", nombre:"Mercado La Democracia",   dir:"2a Calle, Zona 1",         lat:14.84189, lng:-91.52016 },
+  { id:"PF-03", nombre:"Catedral Espíritu Santo", dir:"Frente a la catedral",      lat:14.83366, lng:-91.51810 },
+  { id:"PF-04", nombre:"Teatro Municipal",        dir:"1a Calle y 14 Avenida",    lat:14.83777, lng:-91.51895 },
+  { id:"PF-05", nombre:"Municipalidad",           dir:"11 Avenida, Zona 1",       lat:14.83427, lng:-91.51797 },
+];
+
+// Estado: false = vacío, true = lleno
+const estado = {};
+PUNTOS_FIJOS.forEach(p => estado[p.id] = false);
+
+let alertasESP = [];
+let marcadorESP = null;
+let marcadoresFijos = {};
+let rutaLayer = null;
+let map;
+
+// ── Mapa ──────────────────────────────────────────────────────
+function iniciarMapa() {
+  map = L.map("map").setView([14.8366, -91.5188], 16);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors", maxZoom: 19
+  }).addTo(map);
+  PUNTOS_FIJOS.forEach(p => agregarMarcadorFijo(p));
+}
+
+function icoFijo(p) {
+  const lleno = estado[p.id];
+  const color  = lleno ? "#f87171" : "#60a5fa";
+  const bgRgba = lleno ? "rgba(248,113,113,.18)" : "rgba(96,165,250,.18)";
+  const border = lleno ? "rgba(248,113,113,.5)"  : "rgba(96,165,250,.5)";
+  const num = p.id.split("-")[1];
+  return L.divIcon({
+    className: "",
+    html: `<div style="width:34px;height:34px;background:${bgRgba};border:2px solid ${border};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:${color}">${num}</div>`,
+    iconSize: [34,34], iconAnchor: [17,17]
+  });
+}
+
+function agregarMarcadorFijo(p) {
+  const m = L.marker([p.lat, p.lng], { icon: icoFijo(p) })
+    .addTo(map)
+    .bindPopup(`<div class="pop-title">${p.nombre}</div><div class="pop-meta">${p.dir}</div>`);
+  marcadoresFijos[p.id] = m;
+}
+
+function actualizarMarcadorFijo(id) {
+  const p = PUNTOS_FIJOS.find(x => x.id === id);
+  marcadoresFijos[id].setIcon(icoFijo(p));
+}
+
+function icoESP() {
+  return L.divIcon({
+    className: "",
+    html: `<div style="width:38px;height:38px;background:rgba(251,191,36,.2);border:2px solid rgba(251,191,36,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px">⚠</div>`,
+    iconSize: [38,38], iconAnchor: [19,19]
+  });
+}
+
+function ponerMarcadorESP(lat, lng, lugar, bateria) {
+  if (marcadorESP) map.removeLayer(marcadorESP);
+  marcadorESP = L.marker([lat, lng], { icon: icoESP() })
+    .addTo(map)
+    .bindPopup(`<div class="pop-title">Contenedor lleno · ESP32</div><div class="pop-meta">${lugar}<br>Batería: ${bateria}%</div>`)
+    .openPopup();
+  map.flyTo([lat, lng], 17, { duration: 1.2 });
+}
+
+// ── Sidebar puntos fijos ──────────────────────────────────────
+function renderPuntos() {
+  const el = document.getElementById("lista-puntos");
+  el.innerHTML = PUNTOS_FIJOS.map(p => {
+    const lleno = estado[p.id];
+    const cls   = lleno ? "lleno" : "vacio";
+    const label = lleno ? "Lleno — marcar vacío" : "Vacío — marcar lleno";
+    return `
+    <div class="punto-item" onclick="toggleEstado('${p.id}')">
+      <div class="punto-ico ${cls}">${p.id.split("-")[1]}</div>
+      <div class="punto-info">
+        <div class="punto-nombre">${p.nombre}</div>
+        <div class="punto-dir">${p.dir}</div>
+      </div>
+      <button class="punto-toggle ${cls}" onclick="event.stopPropagation();toggleEstado('${p.id}')">${label}</button>
+    </div>`;
+  }).join("");
+  actualizarKpiLlenos();
+}
+
+function toggleEstado(id) {
+  estado[id] = !estado[id];
+  actualizarMarcadorFijo(id);
+  renderPuntos();
+  resetRuta();
+}
+
+function actualizarKpiLlenos() {
+  const n = PUNTOS_FIJOS.filter(p => estado[p.id]).length
+          + (marcadorESP ? 1 : 0);
+  document.getElementById("kpi-llenos").textContent = n;
+}
+
+// ── Alertas ESP32 ─────────────────────────────────────────────
+function procesarMensaje(raw) {
+  let d;
+  try { d = JSON.parse(raw); } catch(e) { return; }
+  d._ts = Date.now();
+  alertasESP.push(d);
+
+  document.getElementById("kpi-bat").textContent = d.bateria + "%";
+  const bajaBat = d.bateria < 20;
+  document.getElementById("kpi-bat-sub").textContent = bajaBat ? "batería baja" : "nivel normal";
+  document.getElementById("kpi-bat-sub").style.color = bajaBat ? "var(--red)" : "var(--muted)";
+  document.getElementById("kpi-hora").textContent = new Date(d._ts).toLocaleTimeString("es-GT",{hour:"2-digit",minute:"2-digit"});
+  document.getElementById("kpi-lugar").textContent = d.lugar || "GPS recibido";
+  document.getElementById("esp-chip").style.display = "inline";
+
+  ponerMarcadorESP(d.lat, d.lng, d.lugar || "Ubicación GPS", d.bateria);
+  actualizarKpiLlenos();
+  renderAlertas();
+  resetRuta();
+}
+
+function renderAlertas() {
+  const el = document.getElementById("lista-alertas");
+  if (!alertasESP.length) {
+    el.innerHTML = `<p class="empty">Sin alertas aún.</p>`; return;
+  }
+  el.innerHTML = alertasESP.slice(-8).reverse().map(a => `
+    <div class="alerta-row">
+      <div class="alerta-dot"></div>
+      <div>
+        <div class="alerta-lugar">${a.lugar || "Ubicación GPS"}</div>
+        <div class="alerta-meta">${a.device_id} · Bat. ${a.bateria}% · ${new Date(a._ts).toLocaleTimeString("es-GT",{hour:"2-digit",minute:"2-digit"})}</div>
+      </div>
+    </div>`).join("");
+}
+
+// ── Algoritmo ruta (vecino más cercano) ───────────────────────
+function dist(a, b) {
+  const R = 6371000, dLat = (b.lat-a.lat)*Math.PI/180, dLng = (b.lng-a.lng)*Math.PI/180;
+  const x = Math.sin(dLat/2)**2 + Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(x), Math.sqrt(1-x));
+}
+
+function vecinoMasCercano(pts) {
+  if (!pts.length) return [];
+  let rest = [...pts], ruta = [rest.splice(0,1)[0]];
+  while (rest.length) {
+    const last = ruta[ruta.length-1];
+    let mi = 0, md = Infinity;
+    rest.forEach((p,i) => { const d = dist(last,p); if (d < md) { md = d; mi = i; } });
+    ruta.push(rest.splice(mi,1)[0]);
+  }
+  return ruta;
+}
+
+function optimizarRuta() {
+  const llenos = PUNTOS_FIJOS.filter(p => estado[p.id]);
+  const espPts = alertasESP.length
+    ? [{ nombre: alertasESP[alertasESP.length-1].lugar || "ESP32", lat: alertasESP[alertasESP.length-1].lat, lng: alertasESP[alertasESP.length-1].lng }]
+    : [];
+  const todos = [...llenos, ...espPts];
+
+  if (!todos.length) {
+    document.getElementById("lista-ruta").innerHTML = `<p class="empty">No hay contenedores llenos. Marca alguno o espera una alerta del ESP32.</p>`;
+    return;
+  }
+
+  const ruta = vecinoMasCercano(todos);
+
+  if (rutaLayer) map.removeLayer(rutaLayer);
+  const coords = ruta.map(p => [p.lat, p.lng]);
+  rutaLayer = L.polyline(coords, { color:"#4ade80", weight:3, dashArray:"8,6", opacity:.85 }).addTo(map);
+  map.fitBounds(rutaLayer.getBounds(), { padding:[40,40] });
+
+  let distTotal = 0;
+  const pasos = ruta.map((p, i) => {
+    const d = i > 0 ? Math.round(dist(ruta[i-1], p)) : 0;
+    distTotal += d;
+    return `<div class="ruta-paso">
+      <div class="ruta-num">${i+1}</div>
+      <div class="ruta-nombre">${p.nombre}</div>
+      ${i > 0 ? `<div class="ruta-dist">${d < 1000 ? d + "m" : (d/1000).toFixed(1) + "km"}</div>` : ""}
+    </div>`;
+  });
+
+  pasos.push(`<div style="padding-top:8px;font-size:12px;color:var(--muted)">Distancia total estimada: <strong style="color:var(--text)">${distTotal < 1000 ? distTotal + " m" : (distTotal/1000).toFixed(2) + " km"}</strong></div>`);
+
+  document.getElementById("lista-ruta").innerHTML = pasos.join("");
+
+  const btn = document.getElementById("btn-ruta");
+  btn.classList.add("done");
+  btn.innerHTML = `<i class="ti ti-check" aria-hidden="true" style="font-size:18px"></i> Ruta optimizada — ${ruta.length} paradas`;
+}
+
+function resetRuta() {
+  if (rutaLayer) { map.removeLayer(rutaLayer); rutaLayer = null; }
+  const btn = document.getElementById("btn-ruta");
+  btn.classList.remove("done");
+  btn.innerHTML = `<i class="ti ti-route" aria-hidden="true" style="font-size:18px"></i> Optimizar ruta de recolección`;
+  document.getElementById("lista-ruta").innerHTML = `<p class="empty">Presiona "Optimizar ruta" para calcular el orden de recolección.</p>`;
+}
+
+// ── MQTT ──────────────────────────────────────────────────────
+function conectarMQTT() {
+  const badge = document.getElementById("mqtt-badge");
+  const client = mqtt.connect(MQTT_BROKER, {
+    clientId: "dashboard-xela-" + Math.random().toString(16).slice(2,8),
+    reconnectPeriod: 4000,
+    connectTimeout: 10000,
+  });
+
+  client.on("connect", () => {
+    badge.className = "mqtt-badge online";
+    badge.innerHTML = `<div class="dot"></div><span>MQTT conectado</span>`;
+    client.subscribe(MQTT_TOPIC);
+  });
+  client.on("offline", () => {
+    badge.className = "mqtt-badge offline";
+    badge.innerHTML = `<div class="dot"></div><span>Sin conexión</span>`;
+  });
+  client.on("reconnect", () => {
+    badge.className = "mqtt-badge connecting";
+    badge.innerHTML = `<div class="dot"></div><span>Reconectando...</span>`;
+  });
+  client.on("message", (_, msg) => procesarMensaje(msg.toString()));
+}
+
+// ── Init ──────────────────────────────────────────────────────
+iniciarMapa();
+renderPuntos();
+conectarMQTT();
+</script>
+</body>
+</html>
