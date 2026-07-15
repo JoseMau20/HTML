@@ -1,0 +1,341 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #F4F8FB; /* Fondo general azul muy pálido */
+    color: #333333;
+}
+
+header {
+    background-color: #2C4762; /* Azul pizarra oscuro */
+    color: white;
+    padding: 0.8rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.logo-tipografico {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-iniciales {
+    background-color: #4A749C;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 800;
+    padding: 0.4rem 0.6rem;
+    border-radius: 8px;
+    letter-spacing: 2px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.logo-texto {
+    color: #FFFFFF;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.logo-tipografico:hover .logo-iniciales {
+    background-color: #8AB4F8;
+    color: #1F3247;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+nav a {
+    color: #E9F0F7;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #8AB4F8;
+}
+
+
+section {
+    padding: 4rem 2rem;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-size: 2.2rem;
+    color: #2C4762;
+}
+
+.seccion-inicio {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    min-height: 60vh;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.inicio-texto {
+    flex: 1;
+}
+
+.inicio-texto h2 {
+    text-align: left;
+    margin-bottom: 1.5rem;
+    font-size: 2.8rem;
+}
+
+.inicio-texto p {
+    font-size: 1.2rem;
+    color: #556B82;
+    line-height: 1.6;
+}
+
+.inicio-imagen {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.inicio-imagen img {
+    width: 100%;
+    max-width: 450px;
+    border-radius: 50%;
+    box-shadow: 0 15px 30px rgba(44, 71, 98, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.inicio-imagen img:hover {
+    transform: scale(1.02);
+}
+
+.grid-proyectos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.proyecto {
+    background-color: #E9F0F7; 
+    border-radius: 12px; 
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(44, 71, 98, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; 
+}
+
+.proyecto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(44, 71, 98, 0.15);
+}
+
+.proyecto h4 {
+    background-color: #2C4762; 
+    color: #FFFFFF;
+    padding: 1.5rem 2rem;
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.proyecto-content {
+    padding: 2rem; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.proyecto p {
+    margin-bottom: 1.5rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.proyecto a {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background-color: #4A749C; 
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+}
+
+.proyecto a:hover {
+    background-color: #3A5B7C;
+}
+
+.seccion-conocenos p {
+    margin-bottom: 2rem;
+    color: #556B82;
+    font-size: 1.1rem;
+}
+
+.perfiles {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 900px;
+}
+
+.perfil {
+    text-align: center;
+    background-color: #FFFFFF;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(44, 71, 98, 0.08);
+    flex: 1;
+    min-width: 250px;
+}
+
+.perfil h3 {
+    color: #2C4762;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.perfil p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.enlaces-sociales {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: fit-content;
+    margin: 1.5rem auto 0 auto;
+}
+
+.enlaces-sociales a {
+    color: #4A749C;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.enlaces-sociales a i {
+    font-size: 1.5rem;
+    color: #2C4762;
+    width: 25px;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.enlaces-sociales a:hover {
+    color: #2C4762;
+    transform: translateX(5px);
+}
+
+.enlaces-sociales a:hover i {
+    color: #8AB4F8;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: #1F3247;
+    color: #A9BCCF;
+}
+
+@media (max-width: 900px) {
+    .perfiles {
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    section {
+        padding: 3rem 1.5rem;
+        min-height: auto;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    .seccion-inicio {
+        flex-direction: column-reverse;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .inicio-texto h2 {
+        text-align: center;
+        font-size: 2.2rem;
+    }
+
+    .seccion-inicio p {
+        font-size: 1rem;
+    }
+
+    .grid-proyectos {
+        grid-template-columns: 1fr;
+    }
+
+    .perfiles {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .perfil {
+        width: 100%;
+        max-width: 350px;
+    }
+}
