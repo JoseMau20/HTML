@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los 7 Hábitos - Cómic Interactivo</title>
+    <style>
+        body { 
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif; 
+            background-color: #2c3e50; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+            overflow: hidden;
+        }
+        .header-title {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px #000;
+            text-align: center;
+        }
+        .comic-container { 
+            width: 800px; 
+            max-width: 95vw;
+            background: white; 
+            border: 6px solid black; 
+            box-shadow: 12px 12px 0px black; 
+            padding: 30px; 
+            border-radius: 15px; 
+            position: relative; 
+            background-image: radial-gradient(#e0e0e0 2px, transparent 2px);
+            background-size: 20px 20px;
+        }
+        .panel { 
+            display: none; 
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .panel.active { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .habit-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+        .habit-number { 
+            font-size: 2.5em; 
+            font-weight: bold; 
+            color: white; 
+            background: #e74c3c; 
+            padding: 15px 25px; 
+            border-radius: 50%; 
+            border: 4px solid black; 
+            margin-right: 20px;
+            box-shadow: 4px 4px 0px black;
+        }
+        .habit-title { 
+            font-size: 2.2em; 
+            text-transform: uppercase; 
+            font-weight: 900;
+            color: #2c3e50;
+            text-shadow: 2px 2px 0px #f1c40f;
+            -webkit-text-stroke: 1px black;
+        }
+        .comic-box { 
+            border: 4px solid black; 
+            padding: 20px; 
+            margin: 15px 0; 
+            border-radius: 15px; 
+            width: 100%; 
+            box-sizing: border-box;
+            position: relative; 
+            box-shadow: 6px 6px 0px black;
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+        .explanation-box { background: #fffde7; }
+        .example-box { background: #e3f2fd; }
+        
+        /* Speech bubble tail effect */
+        .example-box::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50px;
+            border-width: 0 20px 20px 0;
+            border-style: solid;
+            border-color: transparent black transparent transparent;
+            display: block;
+            width: 0;
+        }
+        .example-box::before {
+            content: '';
+            position: absolute;
+            top: -14px;
+            left: 53px;
+            border-width: 0 16px 16px 0;
+            border-style: solid;
+            border-color: transparent #e3f2fd transparent transparent;
+            display: block;
+            width: 0;
+            z-index: 1;
+        }
+
+        .box-title {
+            font-weight: bold;
+            font-size: 1.3em;
+            background: black;
+            color: white;
+            padding: 5px 10px;
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            border-radius: 5px;
+            text-transform: uppercase;
+        }
+        .nav-buttons { 
+            margin-top: 30px; 
+            display: flex; 
+            justify-content: space-between; 
+            width: 100%; 
+        }
+        button { 
+            padding: 12px 25px; 
+            font-size: 1.3em; 
+            font-family: inherit; 
+            font-weight: bold; 
+            border: 4px solid black; 
+            background: #f1c40f; 
+            cursor: pointer; 
+            border-radius: 10px; 
+            box-shadow: 5px 5px 0px black; 
+            transition: all 0.1s; 
+            text-transform: uppercase;
+        }
+        button:active { 
+            transform: translate(5px, 5px); 
+            box-shadow: 0px 0px 0px black; 
+        }
+        button:disabled { 
+            background: #bdc3c7; 
+            cursor: not-allowed; 
+            color: #7f8c8d;
+            transform: none;
+            box-shadow: 5px 5px 0px #7f8c8d;
+        }
+        .progress {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 15px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+
+    <div class="comic-container" id="comic-container">
+        <!-- Panels injected by JS -->
+    </div>
+
+    <script>
+        const habits = [
+            {
+                num: "01",
+                color: "#2980b9",
+                title: "Ser proactivo",
+                explanation: "Este hábito se centra en la capacidad de controlar cómo actuamos. Significa ser responsables de nuestra vida, tomar iniciativas y elegir cómo responder a los estímulos externos. Las personas proactivas actúan basándose en valores en lugar de reaccionar pasivamente.",
+                example: "En lugar de enojarte y quejarte porque te dejaron mucha tarea (reactivo), decides organizar tu tiempo y buscar recursos para terminarla más rápido y aprender en el proceso (proactivo)."
+            },
+            {
+                num: "02",
+                color: "#e67e22",
+                title: "Empezar con un fin en mente",
+                explanation: "Requiere tener una visión clara de los objetivos que queremos alcanzar. Se trata de establecer metas a largo plazo y comprender nuestros valores. Nos ayuda a asegurar que nuestras acciones estén alineadas con nuestros objetivos profundos.",
+                example: "Antes de armar un rompecabezas, ves la imagen en la caja. En la vida, dibujas un plan de la carrera que quieres estudiar y tomas las clases que te acercarán a esa meta en lugar de solo ir a la deriva."
+            },
+            {
+                num: "03",
+                color: "#7f8c8d",
+                title: "Poner primero lo primero",
+                explanation: "Enfatiza el valor de priorizar las tareas según su importancia en lugar de su urgencia. Es necesario administrar tiempo y energía para concentrarnos en actividades que nos acerquen a nuestros objetivos principales.",
+                example: "¡Hora de decidir! En lugar de pasar 3 horas viendo videos en redes sociales, decides usar la primera hora para terminar tu proyecto importante del trabajo. Lo importante va antes que las distracciones."
+            },
+            {
+                num: "04",
+                color: "#f39c12",
+                title: "Pensar en ganar/ganar",
+                explanation: "Se enfoca en resolver problemas y llegar a acuerdos mutuamente beneficiosos. Se basa en el principio de que hay suficiente éxito para todos y que trabajar juntos para lograr objetivos es la mejor manera de lograrlo.",
+                example: "Tú y tu hermano quieren usar la televisión al mismo tiempo para cosas distintas. En lugar de pelear y que nadie la vea, acuerdan turnarse 1 hora cada uno, o ven juntos un programa que a ambos les guste. ¡Ambos ganan!"
+            },
+            {
+                num: "05",
+                color: "#3498db",
+                title: "Buscar primero comprender...",
+                explanation: "...luego ser comprendido. Destaca la importancia de la escucha empática. Implica escuchar genuinamente a los demás para entender sus puntos de vista y sentimientos antes de expresar nuestras propias soluciones.",
+                example: "Un amigo está triste porque le fue mal en un examen. En lugar de interrumpirlo diciendo 'yo también reprobé', te sientas, lo escuchas atentamente y comprendes cómo se siente antes de darle un consejo."
+            },
+            {
+                num: "06",
+                color: "#9b59b6",
+                title: "Sinergizar",
+                explanation: "Creación de sinergias combinando fortalezas y habilidades para lograr más juntos de lo que se podría individualmente. La colaboración efectiva conduce a resultados superiores: el todo es mayor que la suma de sus partes.",
+                example: "Tienes que hacer un trabajo en equipo. Tú eres excelente escribiendo y tu compañera dibuja increíble. Juntos crean un póster ilustrado que ninguno de los dos habría podido hacer tan bien por separado."
+            },
+            {
+                num: "07",
+                color: "#a4c639",
+                title: "Afilar la sierra",
+                explanation: "Se trata de la renovación y mejora continua en todos los aspectos de la vida: físico, social/emocional, mental y espiritual. Asegura mantenernos equilibrados y efectivos a largo plazo.",
+                example: "Un leñador no puede cortar un árbol si su sierra no tiene filo. Para ti, afilar la sierra es hacer ejercicio (físico), leer un buen libro (mental) y pasar tiempo con tus seres queridos (emocional) el fin de semana."
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function renderComic() {
+            const container = document.getElementById('comic-container');
+            container.innerHTML = '';
+
+            habits.forEach((habit, index) => {
+                const panel = document.createElement('div');
+                panel.className = 'panel' + (index === currentIndex ? ' active' : '');
+                
+                panel.innerHTML = `
+                    <div class="habit-header">
+                        <div class="habit-number" style="background-color: ${habit.color};">${habit.num}</div>
+                        <div class="habit-title">${habit.title}</div>
+                    </div>
+                    
+                    <div class="comic-box explanation-box">
+                        <div class="box-title">Explicación</div>
+                        <p>${habit.explanation}</p>
+                    </div>
+
+                    <div class="comic-box example-box">
+                        <div class="box-title" style="background: #2980b9;">Ejemplo en Acción</div>
+                        <p><i>${habit.example}</i></p>
+                    </div>
+
+                    <div class="nav-buttons">
+                        <button onclick="changePanel(-1)" ${index === 0 ? 'disabled' : ''}>&larr; Anterior</button>
+                        <button onclick="changePanel(1)" ${index === habits.length - 1 ? 'disabled' : ''}>Siguiente &rarr;</button>
+                    </div>
+                    <div class="progress">Hábito ${index + 1} de ${habits.length}</div>
+                `;
+                container.appendChild(panel);
+            });
+        }
+
+        window.changePanel = function(step) {
+            currentIndex += step;
+            if (currentIndex < 0) currentIndex = 0;
+            if (currentIndex >= habits.length) currentIndex = habits.length - 1;
+            renderComic();
+        }
+
+        // Initialize
+        renderComic();
+    </script>
+</body>
+</html>
