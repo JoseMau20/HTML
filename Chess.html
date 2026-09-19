@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Ajedrez - IA Avanzada</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #2c2c2c;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #board {
+            width: 100%;
+            max-width: 600px; 
+            aspect-ratio: 1 / 1; 
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            border: 2px solid #333;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: min(9vw, 55px); 
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .light { background-color: rgb(240, 217, 181); }
+        .dark { background-color: rgb(181, 136, 99); }
+        .highlight { background-color: rgb(186, 202, 68) !important; }
+
+        .piece-w { color: white; text-shadow: 1px 1px 2px black; }
+        .piece-b { color: black; text-shadow: 1px 1px 2px white; }
+
+        #status {
+            margin-top: 20px;
+            font-size: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="board"></div>
+    <div id="status">Turno de las Blancas</div>
+
+    <script>
+        const game = new Chess();
+        const boardElement = document.getElementById('board');
+        const statusElement = document.getElementById('status');
+
+        let selectedSquare = null;
+
+        // Configuración de la IA
+        const SEARCH_DEPTH = 3; // Puedes subirlo a 4 si quieres que sea aún más difícil (pero tardará unos segundos en pensar)
+
+        const PIECE_SYMBOLS = {
+            'w': { 'p': '♙', 'n': '♘', 'b': '♗', 'r': '♖', 'q': '♕', 'k': '♔' },
+            'b': { 'p': '♟', 'n': '♞', 'b': '♝', 'r': '♜', 'q': '♛', 'k': '♚' }
+        };
+
+        // Valores en centipeones (100 = 1 peón)
+        const PIECE_VALUES = {
+            'p': 100, 'n': 320, 'b': 330, 'r': 500, 'q': 900, 'k': 20000
+        };
+
+        // Tablas de posición (Piece-Square Tables)
+        // Le dicen a la IA cuáles casillas son mejores para cada pieza (índice 0 = fila 8 de las negras)
+        const pawnEvalWhite = [
+            [0,  0,  0,  0,  0,  0,  0,  0],
+            [50, 50, 50, 50, 50, 50, 50, 50],
+            [10, 10, 20, 30, 30, 20, 10, 10],
+            [5,  5, 10, 25, 25, 10,  5,  5],
+            [0,  0,  0, 20, 20,  0,  0,  0],
+            [5, -5,-10,  0,  0,-10, -5,  5],
+            [5, 10, 10,-20,-20, 10, 10,  5],
+            [0,  0,  0,  0,  0,  0,  0,  0]
+        ];
+        const knightEval = [
+            [-50,-40,-30,-30,-30,-30,-40,-50],
+            [-40,-20,  0,  0,  0,  0,-20,-40],
+            [-30,  0, 10, 15, 15, 10,  0,-30],
+            [-30,  5, 15, 20, 20, 15,  5,-30],
+            [-30,  0, 15, 20, 20, 15,  0,-30],
+            [-30,  5, 10, 15, 15, 10,  5,-30],
+            [-40,-20,  0,  5,  5,  0,-20,-40],
+            [-50,-40,-30,-30,-30,-30,-40,-50]
+        ];
+        const bishopEvalWhite = [
+            [-20,-10,-10,-10,-10,-10,-10,-20],
+            [-10,  0,  0,  0,  0,  0,  0,-10],
+            [-10,  0,  5, 10, 10,  5,  0,-10],
+            [-10,  5,  5, 10, 10,  5,  5,-10],
+            [-10,  0, 10, 10, 10, 10,  0,-10],
+            [-10, 10, 10, 10, 10, 10, 10,-10],
+            [-10,  5,  0,  0,  0,  0,  5,-10],
+            [-20,-10,-10,-10,-10,-10,-10,-20]
+        ];
+        const rookEvalWhite = [
+            [ 0,  0,  0,  0,  0,  0,  0,  0],
+            [ 5, 10, 10, 10, 10, 10, 10,  5],
+            [-5,  0,  0,  0,  0,  0,  0, -5],
+            [-5,  0,  0,  0,  0,  0,  0, -5],
+            [-5,  0,  0,  0,  0,  0,  0, -5],
+            [-5,  0,  0,  0,  0,  0,  0, -5],
+            [-5,  0,  0,  0,  0,  0,  0, -5],
+            [ 0,  0,  0,  5,  5,  0,  0,  0]
+        ];
+        const queenEval = [
+            [-20,-10,-10, -5, -5,-10,-10,-20],
+            [-10,  0,  0,  0,  0,  0,  0,-10],
+            [-10,  0,  5,  5,  5,  5,  0,-10],
+            [ -5,  0,  5,  5,  5,  5,  0, -5],
+            [  0,  0,  5,  5,  5,  5,  0, -5],
+            [-10,  5,  5,  5,  5,  5,  0,-10],
+            [-10,  0,  5,  0,  0,  0,  0,-10],
+            [-20,-10,-10, -5, -5,-10,-10,-20]
+        ];
+        const kingEvalWhite = [
+            [-30,-40,-40,-50,-50,-40,-40,-30],
+            [-30,-40,-40,-50,-50,-40,-40,-30],
+            [-30,-40,-40,-50,-50,-40,-40,-30],
+            [-30,-40,-40,-50,-50,-40,-40,-30],
+            [-20,-30,-30,-40,-40,-30,-30,-20],
+            [-10,-20,-20,-20,-20,-20,-20,-10],
+            [ 20, 20,  0,  0,  0,  0, 20, 20],
+            [ 20, 30, 10,  0,  0, 10, 30, 20]
+        ];
+
+        // Función auxiliar para invertir tableros para las negras
+        const reverseArray = (arr) => arr.slice().reverse();
+
+        const pawnEvalBlack = reverseArray(pawnEvalWhite);
+        const bishopEvalBlack = reverseArray(bishopEvalWhite);
+        const rookEvalBlack = reverseArray(rookEvalWhite);
+        const kingEvalBlack = reverseArray(kingEvalWhite);
+
+        function getPiecePositionalValue(piece, r, c) {
+            if (piece.color === 'w') {
+                if (piece.type === 'p') return pawnEvalWhite[r][c];
+                if (piece.type === 'n') return knightEval[r][c];
+                if (piece.type === 'b') return bishopEvalWhite[r][c];
+                if (piece.type === 'r') return rookEvalWhite[r][c];
+                if (piece.type === 'q') return queenEval[r][c];
+                if (piece.type === 'k') return kingEvalWhite[r][c];
+            } else {
+                if (piece.type === 'p') return pawnEvalBlack[r][c];
+                if (piece.type === 'n') return knightEval[r][c];
+                if (piece.type === 'b') return bishopEvalBlack[r][c];
+                if (piece.type === 'r') return rookEvalBlack[r][c];
+                if (piece.type === 'q') return queenEval[r][c];
+                if (piece.type === 'k') return kingEvalBlack[r][c];
+            }
+            return 0;
+        }
+
+        function createBoard() {
+            boardElement.innerHTML = '';
+            const columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+            
+            for (let row = 8; row >= 1; row--) {
+                for (let col = 0; col < 8; col++) {
+                    const squareId = columns[col] + row;
+                    const squareDiv = document.createElement('div');
+                    
+                    squareDiv.classList.add('square');
+                    squareDiv.classList.add((row + col) % 2 !== 0 ? 'light' : 'dark');
+                    squareDiv.id = squareId;
+                    
+                    squareDiv.addEventListener('click', () => onSquareClick(squareId));
+                    boardElement.appendChild(squareDiv);
+                }
+            }
+            updateBoard();
+        }
+
+        function updateBoard() {
+            const squares = document.querySelectorAll('.square');
+            squares.forEach(sq => {
+                sq.innerHTML = ''; 
+                sq.classList.remove('highlight');
+                
+                if (sq.id === selectedSquare) {
+                    sq.classList.add('highlight');
+                }
+
+                const piece = game.get(sq.id);
+                if (piece) {
+                    const symbol = PIECE_SYMBOLS[piece.color][piece.type];
+                    sq.innerHTML = `<span class="piece-${piece.color}">${symbol}</span>`;
+                }
+            });
+
+            checkStatus();
+        }
+
+        function onSquareClick(squareId) {
+            if (game.turn() === 'b' || game.game_over()) return;
+
+            const piece = game.get(squareId);
+
+            if (!selectedSquare) {
+                if (piece && piece.color === 'w') {
+                    selectedSquare = squareId;
+                    updateBoard();
+                }
+            } else {
+                let move = { from: selectedSquare, to: squareId, promotion: 'q' };
+
+                const legalMoves = game.moves({ verbose: true });
+                const isLegal = legalMoves.some(m => m.from === move.from && m.to === move.to);
+
+                if (isLegal) {
+                    game.move(move);
+                    selectedSquare = null;
+                    updateBoard();
+                    
+                    if (!game.game_over()) {
+                        statusElement.innerText = "Pensando (IA Avanzada)...";
+                        // Usar un ligero retraso para que el navegador actualice la interfaz
+                        setTimeout(machineMove, 50);
+                    }
+                } else {
+                    if (piece && piece.color === 'w') {
+                        selectedSquare = squareId;
+                    } else {
+                        selectedSquare = null;
+                    }
+                    updateBoard();
+                }
+            }
+        }
+
+        function evaluateBoard(boardGame) {
+            let totalEvaluation = 0;
+            const board = boardGame.board();
+            for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                    const piece = board[r][c];
+                    if (piece) {
+                        const material = PIECE_VALUES[piece.type];
+                        const positional = getPiecePositionalValue(piece, r, c);
+                        const pieceValue = material + positional;
+                        
+                        // Blancas suman positivo, negras restan negativo
+                        totalEvaluation += piece.color === 'w' ? pieceValue : -pieceValue;
+                    }
+                }
+            }
+            return totalEvaluation;
+        }
+
+        // Minimax con PODA ALFA-BETA (mucho más rápido y profundo)
+        function minimax(boardGame, depth, alpha, beta, isMaximizing) {
+            if (depth === 0 || boardGame.game_over()) {
+                return evaluateBoard(boardGame);
+            }
+
+            const moves = boardGame.moves();
+
+            if (isMaximizing) {
+                let maxEval = -Infinity;
+                for (let i = 0; i < moves.length; i++) {
+                    boardGame.move(moves[i]);
+                    let evalScore = minimax(boardGame, depth - 1, alpha, beta, false);
+                    boardGame.undo();
+                    
+                    maxEval = Math.max(maxEval, evalScore);
+                    alpha = Math.max(alpha, evalScore);
+                    if (beta <= alpha) break; // Poda Alfa-Beta (descarta ramas inútiles)
+                }
+                return maxEval;
+            } else {
+                let minEval = Infinity;
+                for (let i = 0; i < moves.length; i++) {
+                    boardGame.move(moves[i]);
+                    let evalScore = minimax(boardGame, depth - 1, alpha, beta, true);
+                    boardGame.undo();
+                    
+                    minEval = Math.min(minEval, evalScore);
+                    beta = Math.min(beta, evalScore);
+                    if (beta <= alpha) break; // Poda Alfa-Beta
+                }
+                return minEval;
+            }
+        }
+
+        function machineMove() {
+            let bestValue = Infinity; // Las negras buscan el valor más bajo
+            let bestMove = null;
+            
+            // Ordenar los movimientos (heurística simple para mejorar la Poda Alfa-Beta)
+            // Se puede extender, por ahora evaluamos directo pero usando AlfaBeta
+            const moves = game.moves({ verbose: true });
+
+            for (let i = 0; i < moves.length; i++) {
+                const move = moves[i];
+                game.move(move);
+                
+                // depth - 1 porque este bucle ya es la primera profundidad
+                let boardValue = minimax(game, SEARCH_DEPTH - 1, -Infinity, Infinity, true); 
+                game.undo();
+
+                if (boardValue < bestValue) {
+                    bestValue = boardValue;
+                    bestMove = move;
+                }
+            }
+
+            if (bestMove) {
+                game.move(bestMove);
+            }
+            updateBoard();
+        }
+
+        function checkStatus() {
+            if (game.in_checkmate()) {
+                statusElement.innerText = game.turn() === 'w' ? '¡Jaque Mate! Ganan las Negras.' : '¡Jaque Mate! Ganan las Blancas.';
+            } else if (game.in_draw() || game.in_stalemate()) {
+                statusElement.innerText = '¡Empate!';
+            } else {
+                statusElement.innerText = game.turn() === 'w' ? 'Turno de las Blancas' : 'Turno de las Negras';
+                if (game.in_check()) {
+                    statusElement.innerText += ' (¡Jaque!)';
+                }
+            }
+        }
+
+        createBoard();
+    </script>
+</body>
+</html>
